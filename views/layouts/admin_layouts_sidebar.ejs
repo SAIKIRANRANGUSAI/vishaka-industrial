@@ -1,0 +1,254 @@
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <img src="/images/harvest-logo.png" alt="Logo" class="sidebar-logo">
+        <h2>Harvest Tender Roots</h2>
+        <button class="sidebar-toggle" id="sidebarToggle">
+            <!-- <i class="fas fa-bars"></i> -->
+        </button>
+    </div>
+
+
+    <div class="sidebar-menu" id="sidebarMenu">
+        <div class="menu-label">Main</div>
+        <a href="/admin/dashboard"
+            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'dashboard') ? 'active' : '' %>">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="/admin/home"
+            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'home') ? 'active' : '' %>">
+            <i class="fas fa-house-user"></i>
+            <span>Home</span>
+        </a>
+
+        <div class="menu-label">Content</div>
+        <a href="/admin/about-us"
+            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'about-us') ? 'active' : '' %>">
+            <i class="fas fa-info-circle"></i>
+            <span>About Us</span>
+        </a>
+        <a href="/admin/principal-message"
+            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'principal-message') ? 'active' : '' %>">
+            <i class="fas fa-info-circle"></i>
+            <span>principal-message</span>
+        </a>
+        <a href="/admin/admission"
+            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'admission') ? 'active' : '' %>">
+            <i class="fas fa-file-alt"></i>
+            <span>Admission</span>
+        </a>
+        <a href="/admin/Events"
+            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'Events') ? 'active' : '' %>">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Events</span>
+        </a>
+
+        <a href="/admin/Facilities"
+            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'Facilities') ? 'active' : '' %>">
+            <i class="fas fa-graduation-cap"></i>
+            <span> Facilities</span>
+        </a>
+
+        <a href="/admin/gallery"
+            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'gallery') ? 'active' : '' %>">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Gallery</span>
+        </a>
+        <a href="/admin/Administration"
+            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'Administration') ? 'active' : '' %>">
+            <i class="fas fa-users"></i>
+            <span>Administration</span>
+        </a>
+
+        <div class="menu-label">Settings</div>
+        <a href="/admin/settings"
+            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'settings') ? 'active' : '' %>">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </a>
+        <a href="/admin/seo-settings"
+            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'seo-settings') ? 'active' : '' %>">
+            <i class="fas fa-cog"></i>
+            <span>SEO-Settings</span>
+        </a>
+        <a href="/admin/logout" class="menu-item" onclick="return confirm('Are you sure you want to logout?');">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+
+    <!-- <div class="sidebar-footer">
+        <div class="user-info">
+            <img src="/images/admin-avatar.png" alt="User">
+            <div class="user-details">
+                <h4>Admin User</h4>
+                <span class="text-muted">Administrator</span>
+            </div>
+        </div>
+    </div> -->
+</div>
+<!-- <script>
+    const sidebar = document.querySelector('.sidebar');
+    const toggleBtn = document.getElementById('sidebarToggle');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+    });
+</script> -->
+
+<style>
+    /* Sidebar */
+    .sidebar {
+        width: var(--sidebar-width);
+        background: linear-gradient(to bottom, var(--primary), var(--primary-dark));
+        color: white;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        transition: var(--transition);
+        z-index: 1000;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        left: 0;
+        top: 0;
+    }
+    @media (max-width: 992px) {
+    .sidebar {
+        position: fixed;
+        left: -260px;
+        transition: left 0.3s ease;
+        z-index: 1000;
+    }
+
+    .sidebar.collapsed {
+        left: 0;
+    }
+
+    .main-content-wrapper {
+        margin-left: 0;
+    }
+}
+
+
+    .sidebar-header {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Logo and toggle button on sides */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.1);
+}
+    .sidebar-header img {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        margin-right: 12px;
+        object-fit: cover;
+    }
+
+    .sidebar-header h2 {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .sidebar-menu {
+        padding: 20px 0;
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    .menu-label {
+        padding: 10px 20px;
+        font-size: 12px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.7);
+        letter-spacing: 1px;
+    }
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        padding: 14px 20px;
+        color: white;
+        text-decoration: none;
+        transition: var(--transition);
+        position: relative;
+    }
+
+    .menu-item:hover {
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    .menu-item.active {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .menu-item.active::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 4px;
+        background: var(--secondary);
+    }.sidebar-toggle {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.sidebar.collapsed {
+    width: 60px; /* collapsed width */
+}
+
+.sidebar.collapsed .sidebar-menu {
+    display: none;
+}
+
+.sidebar.collapsed h2 {
+    display: none;
+}
+
+    .menu-item i {
+        width: 24px;
+        margin-right: 12px;
+        font-size: 18px;
+    }
+
+    .menu-item span {
+        flex: 1;
+    }
+
+    .sidebar-footer {
+        padding: 16px 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+    }
+
+    .user-info img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 12px;
+        object-fit: cover;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .user-details h4 {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    .user-details span {
+        font-size: 12px;
+    }
+</style>

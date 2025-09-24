@@ -1,0 +1,44 @@
+            </div>
+
+            <!-- Footer -->
+            <footer class="dashboard-footer">
+               <%
+  const startYear = 2025;
+  const currentYear = new Date().getFullYear();
+  const displayYear = currentYear === startYear ? `${startYear}` : `${startYear}-${currentYear - 2000}`;
+%>
+<p>
+  Copyright <%= displayYear %> | Harvest Tender Roots | All Rights Reserved | Design and Developed by 
+  <a href="https://thecolourmoon.com" target="_blank">Colourmoon</a>
+</p>
+
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Toggle sidebar on mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleButton = document.querySelector('.toggle-sidebar');
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content-wrapper');
+            
+            if (toggleButton && sidebar) {
+                toggleButton.addEventListener('click', function() {
+                    sidebar.classList.toggle('active');
+                });
+            }
+
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', function(event) {
+                if (window.innerWidth < 992 && 
+                    sidebar.classList.contains('active') &&
+                    !sidebar.contains(event.target) && 
+                    !event.target.closest('.toggle-sidebar')) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
