@@ -188,50 +188,40 @@
   </section>
 
   <div class="bg-smoke position-relative overflow-hidden space" id="about-sec">
-    <div class="container">
-      <div class="row">
-        <div class="col-xl-6">
-          <div class="img-box4 ab5-imgbox space-bottom text-end">
-            <div class="img1 reveal">
-              <img src="/images/about-image-1.jpg" alt="About" />
-            </div>
-            <div class="img2">
-              <img src="/images/about-image-2.jpg" alt="About" />
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-6">
+        <div class="img-box4 ab5-imgbox space-bottom text-end">
+          <div class="img1 reveal">
+            <img src="<%= about.image1_url || '/images/about-image-1.jpg' %>" alt="About" />
+          </div>
+          <div class="img2">
+            <img src="<%= about.image2_url || '/images/about-image-2.jpg' %>" alt="About" />
           </div>
         </div>
-        <div class="col-xl-6">
-          <div class="ab5-wrapp mt-40">
-            <div class="title-area">
-              <span class="sub-title style1 text-anime-style-2">About Us</span>
-              <h2 class="sec-title text-anime-style-2">
-                About Visakha Industrial Security Force
-              </h2>
-              <p class="sec-text mb-30 wow fadeInUp" data-wow-delay=".2s">
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout.
-                The point of using Lorem Ipsum is that it has a more-or-less
-                normal distribution of letters, as opposed to using 'Content
-                here, content here', making it look like readable English.
-              </p>
-              <p class="sec-text mb-30 wow fadeInUp" data-wow-delay=".2s">
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout.
-                The point of using Lorem Ipsum is that it has a more-or-less
-                normal distribution of letters, as opposed to using 'Content
-                here, content here', making it look like readable English.
-              </p>
-            </div>
-
-            <div class="mt-35 wow fadeInUp" data-wow-delay=".5s">
-              <a href="about" class="th-btn th-radius th-icon">Learn More <i
-                  class="fa-light fa-arrow-right-long"></i></a>
-            </div>
+      </div>
+      <div class="col-xl-6">
+        <div class="ab5-wrapp mt-40">
+          <div class="title-area">
+            <span class="sub-title style1 text-anime-style-2">About Us</span>
+            <h2 class="sec-title text-anime-style-2">
+              <%= about.heading || 'About Visakha Industrial Security Force' %>
+            </h2>
+            <p class="sec-text mb-30 wow fadeInUp" data-wow-delay=".2s">
+              <%- about.description || 'It is a long established fact that a reader will be distracted by the readable content of a page...' %>
+            </p>
+          </div>
+          <div class="mt-35 wow fadeInUp" data-wow-delay=".5s">
+            <a href="/about" class="th-btn th-radius th-icon">
+              Learn More <i class="fa-light fa-arrow-right-long"></i>
+            </a>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
 
   <div class="brand-sec space-top space-bottom">
     <div class="container th-container4">

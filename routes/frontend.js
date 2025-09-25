@@ -25,6 +25,8 @@ router.get("/", async (req, res) => {
     const [services] = await db.execute(
       `SELECT * FROM services ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}`
     );
+    const [aboutRows] = await db.execute("SELECT * FROM about_us ORDER BY id DESC LIMIT 1");
+    const about = aboutRows[0] || {};
 
     res.render("index", {
       title: "Home",
@@ -35,7 +37,9 @@ router.get("/", async (req, res) => {
       offer_description: data.offer_description,
       services,
       currentPage: page,
-      totalPages
+      totalPages,
+      about,
+
     });
   } catch (err) {
     console.error("❌ GET / error:", err);
@@ -103,7 +107,26 @@ router.get("/services-pagination", async (req, res) => {
 });
 
 
-router.get("/about", (req, res) => res.render("about", { title: "About" }));
+router.get("/about", async (req, res) => {
+  try {
+    // Fetch the about_us record (assuming only 1 row)
+    const [rows] = await db.execute("SELECT * FROM about_us ORDER BY id DESC LIMIT 1");
+
+    const about = rows[0] || {}; // fallback if table is empty
+    const [detailsRows] = await db.execute("SELECT * FROM about_page_details ORDER BY id DESC LIMIT 1");
+    const aboutDetails = detailsRows[0] || {}; // fallback if table is empty
+
+    res.render("about", {
+      title: "About",
+      about, // pass dynamic content to EJS
+      aboutDetails,
+    });
+  } catch (err) {
+    console.error(err);
+    res.render("about", { title: "About", about: {} });
+  }
+});
+
 router.get("/gallery", (req, res) => res.render("gallery", { title: "Gallery" }));
 // Pass the site key to the EJS template
 router.get("/clients", (req, res) => res.render("clients", { title: "Clients" }));

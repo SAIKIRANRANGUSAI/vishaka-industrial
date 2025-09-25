@@ -256,37 +256,34 @@ router.post("/services/:id/delete", async (req, res) => {
     }
 });
 // GET About Us page
+// GET About Us Page
 router.get("/about-us", async (req, res) => {
   try {
     const [rows] = await db.execute("SELECT * FROM about_us ORDER BY id DESC LIMIT 1");
     const about = rows[0] || {};
 
-    // Add successMessage key so EJS won't throw an error
-    res.render("admin_about-us", { about, successMessage: '' });
+    const [aboutRows] = await db.execute("SELECT * FROM about_page_details ORDER BY id DESC LIMIT 1");
+    const abouts = aboutRows[0] || {};
 
+    res.render("admin_about-us", { about, abouts, successMessage: '' });
   } catch (err) {
-    console.error(err);
+    console.error("❌ GET /about-us Error:", err);
     res.status(500).send("Server Error");
   }
 });
 
-
-
-// POST About Us update
+// POST Update Main About Us Content (Table 1)
 router.post("/about-us", upload.fields([{ name: "image1" }, { name: "image2" }]), async (req, res) => {
   try {
     const { heading, description } = req.body;
     const files = req.files;
 
-    // Get latest About Us row
     const [rows] = await db.execute("SELECT * FROM about_us ORDER BY id DESC LIMIT 1");
     const existing = rows[0] || {};
 
-    // Initialize image URLs
     let image1_url = req.body.existing_image1 || existing.image1_url || null;
     let image2_url = req.body.existing_image2 || existing.image2_url || null;
 
-    // Upload new images if provided
     if (files.image1) {
       const uploaded1 = await uploadToCloudinary(files.image1[0].path, "about_us");
       image1_url = uploaded1.url;
@@ -298,42 +295,130 @@ router.post("/about-us", upload.fields([{ name: "image1" }, { name: "image2" }])
     }
 
     if (existing.id) {
-      // Update existing row
       await db.execute(
         "UPDATE about_us SET heading=?, description=?, image1_url=?, image2_url=?, updated_at=NOW() WHERE id=?",
-        [
-          heading || null,
-          description || null,
-          image1_url,
-          image2_url,
-          existing.id,
-        ]
+        [heading || null, description || null, image1_url, image2_url, existing.id]
       );
     } else {
-      // Insert new row
       await db.execute(
         "INSERT INTO about_us (heading, description, image1_url, image2_url) VALUES (?, ?, ?, ?)",
-        [
-          heading || null,
-          description || null,
-          image1_url,
-          image2_url,
-        ]
+        [heading || null, description || null, image1_url, image2_url]
       );
     }
 
-    // Fetch updated row to send back to template
     const [updatedRows] = await db.execute("SELECT * FROM about_us ORDER BY id DESC LIMIT 1");
     const updatedAbout = updatedRows[0];
 
-    res.render("admin_about-us", {
-      about: updatedAbout,
-      successMessage: "About Us updated successfully!",
-    });
+    const [aboutRows] = await db.execute("SELECT * FROM about_page_details ORDER BY id DESC LIMIT 1");
+    const abouts = aboutRows[0] || {};
+
+    res.render("admin_about-us", { about: updatedAbout, abouts, successMessage: "About Us updated successfully!" });
   } catch (err) {
-    console.error("❌ About Us POST Error:", err);
+    console.error("❌ POST /about-us Error:", err);
     res.status(500).send("Server Error");
   }
 });
+
+// POST Update About Page Details (Table 2)
+router.post("/about-us/update", upload.fields([
+  { name: "choose_image1_url", maxCount: 1 },
+  { name: "choose_image2_url", maxCount: 1 },
+  { name: "choose_image3_url", maxCount: 1 }
+]), async (req, res) => {
+  try {
+    const data = req.body;
+
+    const [rows] = await db.execute("SELECT * FROM about_page_details ORDER BY id DESC LIMIT 1");
+    const about = rows[0] || {};
+
+    const files = req.files;
+    const uploadedImages = {};
+
+    for (let key of ["choose_image1_url", "choose_image2_url", "choose_image3_url"]) {
+  if (files[key]) {
+    const uploaded = await uploadToCloudinary(files[key][0].path, "about_page");
+    uploadedImages[key] = uploaded.url; // use .url from your helper
+  } else {
+    uploadedImages[key] = data[`existing_${key}`] || null;
+  }
+}
+
+
+    if (about.id) {
+      await db.execute(`
+        UPDATE about_page_details SET
+          years_experience=?, employees=?, projects_completed=?, happy_clients=?,
+          vision_heading=?, vision_description=?,
+          mission_heading=?, mission_description=?,
+          goal_heading=?, goal_description=?,
+          choose_heading=?, choose_description=?,
+          choose_image1_url=?, choose_image2_url=?, choose_image3_url=?,
+          updated_at=CURRENT_TIMESTAMP
+        WHERE id=?
+      `, [
+        data.years_experience || 0,
+        data.employees || 0,
+        data.projects_completed || 0,
+        data.happy_clients || 0,
+        data.vision_heading || "",
+        data.vision_description || "",
+        data.mission_heading || "",
+        data.mission_description || "",
+        data.goal_heading || "",
+        data.goal_description || "",
+        data.choose_heading || "",
+        data.choose_description || "",
+        uploadedImages.choose_image1_url,
+        uploadedImages.choose_image2_url,
+        uploadedImages.choose_image3_url,
+        about.id
+      ]);
+    } else {
+      await db.execute(`
+        INSERT INTO about_page_details (
+          years_experience, employees, projects_completed, happy_clients,
+          vision_heading, vision_description,
+          mission_heading, mission_description,
+          goal_heading, goal_description,
+          choose_heading, choose_description,
+          choose_image1_url, choose_image2_url, choose_image3_url
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `, [
+        data.years_experience || 0,
+        data.employees || 0,
+        data.projects_completed || 0,
+        data.happy_clients || 0,
+        data.vision_heading || "",
+        data.vision_description || "",
+        data.mission_heading || "",
+        data.mission_description || "",
+        data.goal_heading || "",
+        data.goal_description || "",
+        data.choose_heading || "",
+        data.choose_description || "",
+        uploadedImages.choose_image1_url,
+        uploadedImages.choose_image2_url,
+        uploadedImages.choose_image3_url
+      ]);
+    }
+
+    // Fetch latest data to show after update
+    const [updatedAboutRows] = await db.execute("SELECT * FROM about_us ORDER BY id DESC LIMIT 1");
+    const updatedAbout = updatedAboutRows[0] || {};
+    const [updatedAboutsRows] = await db.execute("SELECT * FROM about_page_details ORDER BY id DESC LIMIT 1");
+    const updatedAbouts = updatedAboutsRows[0] || {};
+
+    res.render("admin_about-us", {
+      about: updatedAbout,
+      abouts: updatedAbouts,
+      successMessage: "Company details updated successfully!"
+    });
+
+  } catch (err) {
+    console.error("❌ POST /about-us/update Error:", err);
+    res.status(500).send("Server Error");
+  }
+});
+
 
 module.exports = router;

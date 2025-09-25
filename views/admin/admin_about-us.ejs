@@ -1,159 +1,959 @@
-<%- include('../layouts/admin_layouts_header', { title: 'Admin | About Us' , currentPage: 'about-us' }) %>
-    <%- include('../layouts/admin_layouts_sidebar', { currentPage: 'about-us' }) %>
+<%- include('../layouts/admin_layouts_header', { title: 'Admin | About Us', currentPage: 'about-us' }) %>
+<%- include('../layouts/admin_layouts_sidebar', { currentPage: 'about-us' }) %>
 
-        <div class="container-fluid px-4 py-4">
-            <!-- Premium Header -->
-            <div class="premium-header mb-5">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h1 class="h3 fw-bold text-gradient mb-2">About Us Management</h1>
-                        <p class="text-muted mb-0">Update your company's story and showcase it elegantly</p>
+<div class="container-fluid px-4 py-4">
+    <!-- Premium Header -->
+    <div class="premium-header mb-5">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="h3 fw-bold text-gradient mb-2">About Us Management</h1>
+                <p class="text-muted mb-0">Craft your company's story with compelling content and visuals</p>
+            </div>
+            <div class="premium-icon">
+                <i class="fas fa-building"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <% if (successMessage) { %>
+        <div class="alert-premium-success alert-dismissible fade show mb-4" role="alert">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-check-circle me-3"></i>
+                <div class="fw-medium"><%= successMessage %></div>
+                <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+    <% } %>
+
+    <!-- Main About Us Content (Table 1) -->
+    <form action="/admin/about-us" method="POST" enctype="multipart/form-data">
+        <!-- Content Section -->
+        <div class="premium-card mb-4">
+            <div class="premium-card-header">
+                <div class="d-flex align-items-center">
+                    <div class="premium-icon-small me-3">
+                        <i class="fas fa-edit"></i>
                     </div>
-                    <div class="premium-icon">
-                        <i class="fas fa-info-circle"></i>
+                    <div>
+                        <h4 class="mb-1 fw-bold">Main Content Section</h4>
+                        <p class="mb-0 text-muted">Tell your company's story with engaging content</p>
                     </div>
                 </div>
             </div>
-
-            <% if (successMessage) { %>
-                <div class="alert alert-premium alert-dismissible fade show mb-4" role="alert">
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-check-circle me-3"></i>
-                        <div class="fw-medium">
-                            <%= successMessage %>
-                        </div>
-                        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"
-                            aria-label="Close"></button>
+            <div class="premium-card-body">
+                <!-- Heading -->
+                <div class="form-group-premium mb-4">
+                    <label class="form-label-premium">
+                        <i class="fas fa-heading me-2"></i>
+                        Main Heading
+                    </label>
+                    <textarea id="heading" name="heading" class="premium-input" rows="2" 
+                              placeholder="Enter a compelling heading that represents your company..."><%= about.heading || '' %></textarea>
+                    <div class="form-text">
+                        <i class="fas fa-lightbulb me-1"></i>
+                        Keep it concise and impactful (max 120 characters)
                     </div>
                 </div>
-                <% } %>
 
-                    <form action="/admin/about-us" method="POST" enctype="multipart/form-data">
-                        <!-- Heading Section -->
-                        <div class="premium-card mb-5">
-                            <div class="premium-card-header d-flex align-items-center gap-3">
-                                <div class="premium-icon-small">
-                                    <i class="fas fa-heading"></i>
+                <!-- Description -->
+                <div class="form-group-premium">
+                    <label class="form-label-premium">
+                        <i class="fas fa-align-left me-2"></i>
+                        Detailed Description
+                    </label>
+                    <textarea id="description" name="description" class="premium-textarea" 
+                              placeholder="Describe your company's mission, values, and story..."><%= about.description || '' %></textarea>
+                    <div class="form-text">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Use the rich text editor for advanced formatting
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Images Section -->
+        <div class="premium-card mb-5">
+            <div class="premium-card-header">
+                <div class="d-flex align-items-center">
+                    <div class="premium-icon-small me-3">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-1 fw-bold">Visual Assets</h4>
+                        <p class="mb-0 text-muted">Upload high-quality images that represent your brand</p>
+                    </div>
+                </div>
+            </div>
+            <div class="premium-card-body">
+                <div class="row g-4">
+                    <% ['image1','image2'].forEach((imgKey, i) => { %>
+                        <div class="col-xl-6 col-lg-12">
+                            <div class="image-upload-card">
+                                <div class="image-card-header">
+                                    <h6 class="mb-0 fw-bold">
+                                        <i class="fas fa-image me-2 text-primary"></i>
+                                        Image <%= i+1 %>
+                                    </h6>
+                                    <span class="badge-premium">Recommended: 800×600px</span>
                                 </div>
-                                <div>
-                                    <h4 class="mb-1 fw-bold">Heading</h4>
-                                    <p class="mb-0 text-muted">Your main headline for About Us</p>
+                                
+                                <div class="image-preview-container">
+                                    <% const imgUrl = about[imgKey + '_url']; %>
+                                    <% if (imgUrl) { %>
+                                        <div class="premium-image-wrapper">
+                                            <img src="<%= imgUrl %>" 
+                                                 class="premium-image-preview" 
+                                                 alt="About Us Image <%= i+1 %>"
+                                                 onclick="previewImage('<%= imgUrl %>')">
+                                            <div class="image-overlay">
+                                                <button type="button" class="btn-premium-icon" onclick="previewImage('<%= imgUrl %>')">
+                                                    <i class="fas fa-expand"></i>
+                                                </button>
+                                                <span class="status-badge">Active</span>
+                                            </div>
+                                            <input type="hidden" name="existing_<%= imgKey %>" value="<%= imgUrl %>">
+                                        </div>
+                                    <% } else { %>
+                                        <div class="empty-image-state">
+                                            <div class="empty-icon">
+                                                <i class="fas fa-cloud-upload-alt"></i>
+                                            </div>
+                                            <p class="empty-text">No Image Uploaded</p>
+                                            <small class="empty-subtext">Click below to upload an image</small>
+                                        </div>
+                                    <% } %>
                                 </div>
-                            </div>
-                            <div class="premium-card-body">
-                                <textarea name="heading" id="heading"
-                                    class="premium-textarea"><%= about.heading || '' %></textarea>
+
+                                <div class="upload-section">
+                                    <div class="file-input-wrapper">
+                                        <input type="file" name="<%= imgKey %>" id="file-<%= imgKey %>" 
+                                               class="premium-file-input" accept="image/*">
+                                        <label for="file-<%= imgKey %>" class="file-input-label">
+                                            <i class="fas fa-upload me-2"></i>
+                                            <%= imgUrl ? 'Change Image' : 'Upload Image' %>
+                                        </label>
+                                    </div>
+                                    <div class="file-help-text">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Supports JPG, PNG, WebP (Max 10MB)
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Description Section -->
-                        <!-- Description Section -->
-<div class="content-group">
-    <div class="content-label">
-        <i class="fas fa-align-left"></i>
-        <div>
-            <h6 class="mb-1">Detailed Description</h6>
-            <small>Tell your story with clarity</small>
+                    <% }) %>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="content-input">
-        <textarea id="offer_description" 
-          name="offer_description"
-          rows="10"
-          placeholder="Describe your offerings with passion and precision..."><%= about.description || '' %></textarea>
 
-        <div class="input-helper">
-            <i class="fas fa-info-circle me-1"></i>
-            Use the editor to format text, add links, images, and more.
+        <!-- Submit Section for Table 1 -->
+        <div class="premium-submit-section mb-5">
+            <div class="submit-card">
+                <div class="submit-content">
+                    <i class="fas fa-save submit-icon"></i>
+                    <div>
+                        <h5 class="mb-1">Update Main Content</h5>
+                        <p class="mb-0">Save changes to the main About Us section</p>
+                    </div>
+                </div>
+                <button type="submit" class="btn-premium">
+                    <i class="fas fa-save me-2"></i>
+                    Update Main Content
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <!-- About Page Details (Table 2) -->
+    <form action="/admin/about-us/update" method="POST" enctype="multipart/form-data">
+        <!-- Stats Section -->
+        <div class="premium-card mb-4">
+            <div class="premium-card-header">
+                <div class="d-flex align-items-center">
+                    <div class="premium-icon-small me-3">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-1 fw-bold">Company Statistics</h4>
+                        <p class="mb-0 text-muted">Showcase your achievements and milestones</p>
+                    </div>
+                </div>
+            </div>
+            <div class="premium-card-body">
+                <div class="row g-4">
+                    <div class="col-xl-3 col-md-6">
+                        <div class="stat-input-group">
+                            <label class="form-label-premium">
+                                <i class="fas fa-calendar-alt me-2"></i>
+                                Years Experience
+                            </label>
+                            <input type="number" name="years_experience" class="premium-input" 
+                                   value="<%= abouts.years_experience || 0 %>" min="0">
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="stat-input-group">
+                            <label class="form-label-premium">
+                                <i class="fas fa-users me-2"></i>
+                                Employees
+                            </label>
+                            <input type="number" name="employees" class="premium-input" 
+                                   value="<%= abouts.employees || 0 %>" min="0">
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="stat-input-group">
+                            <label class="form-label-premium">
+                                <i class="fas fa-project-diagram me-2"></i>
+                                Projects Completed
+                            </label>
+                            <input type="number" name="projects_completed" class="premium-input" 
+                                   value="<%= abouts.projects_completed || 0 %>" min="0">
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="stat-input-group">
+                            <label class="form-label-premium">
+                                <i class="fas fa-smile me-2"></i>
+                                Happy Clients
+                            </label>
+                            <input type="number" name="happy_clients" class="premium-input" 
+                                   value="<%= abouts.happy_clients || 0 %>" min="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vision Section -->
+        <div class="premium-card mb-4">
+            <div class="premium-card-header">
+                <div class="d-flex align-items-center">
+                    <div class="premium-icon-small me-3">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-1 fw-bold">Our Vision</h4>
+                        <p class="mb-0 text-muted">Share your company's vision for the future</p>
+                    </div>
+                </div>
+            </div>
+            <div class="premium-card-body">
+                <div class="form-group-premium mb-4">
+                    <label class="form-label-premium">
+                        <i class="fas fa-heading me-2"></i>
+                        Vision Heading
+                    </label>
+                    <input type="text" name="vision_heading" class="premium-input" 
+                           value="<%= abouts.vision_heading || '' %>" 
+                           placeholder="Enter your vision heading...">
+                </div>
+                <div class="form-group-premium">
+                    <label class="form-label-premium">
+                        <i class="fas fa-align-left me-2"></i>
+                        Vision Description
+                    </label>
+                    <textarea name="vision_description" class="premium-textarea" 
+                              placeholder="Describe your company's vision..."><%= abouts.vision_description || '' %></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mission Section -->
+        <div class="premium-card mb-4">
+            <div class="premium-card-header">
+                <div class="d-flex align-items-center">
+                    <div class="premium-icon-small me-3">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-1 fw-bold">Our Mission</h4>
+                        <p class="mb-0 text-muted">Define your company's mission and purpose</p>
+                    </div>
+                </div>
+            </div>
+            <div class="premium-card-body">
+                <div class="form-group-premium mb-4">
+                    <label class="form-label-premium">
+                        <i class="fas fa-heading me-2"></i>
+                        Mission Heading
+                    </label>
+                    <input type="text" name="mission_heading" class="premium-input" 
+                           value="<%= abouts.mission_heading || '' %>" 
+                           placeholder="Enter your mission heading...">
+                </div>
+                <div class="form-group-premium">
+                    <label class="form-label-premium">
+                        <i class="fas fa-align-left me-2"></i>
+                        Mission Description
+                    </label>
+                    <textarea name="mission_description" class="premium-textarea" 
+                              placeholder="Describe your company's mission..."><%= abouts.mission_description || '' %></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Goal Section -->
+        <div class="premium-card mb-4">
+            <div class="premium-card-header">
+                <div class="d-flex align-items-center">
+                    <div class="premium-icon-small me-3">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-1 fw-bold">Our Goals</h4>
+                        <p class="mb-0 text-muted">Outline your company's primary goals</p>
+                    </div>
+                </div>
+            </div>
+            <div class="premium-card-body">
+                <div class="form-group-premium mb-4">
+                    <label class="form-label-premium">
+                        <i class="fas fa-heading me-2"></i>
+                        Goal Heading
+                    </label>
+                    <input type="text" name="goal_heading" class="premium-input" 
+                           value="<%= abouts.goal_heading || '' %>" 
+                           placeholder="Enter your goal heading...">
+                </div>
+                <div class="form-group-premium">
+                    <label class="form-label-premium">
+                        <i class="fas fa-align-left me-2"></i>
+                        Goal Description
+                    </label>
+                    <textarea name="goal_description" class="premium-textarea" 
+                              placeholder="Describe your company's goals..."><%= abouts.goal_description || '' %></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why Choose Us Section -->
+        <div class="premium-card mb-4">
+            <div class="premium-card-header">
+                <div class="d-flex align-items-center">
+                    <div class="premium-icon-small me-3">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-1 fw-bold">Why Choose Us</h4>
+                        <p class="mb-0 text-muted">Highlight what makes your company unique</p>
+                    </div>
+                </div>
+            </div>
+            <div class="premium-card-body">
+                <div class="form-group-premium mb-4">
+                    <label class="form-label-premium">
+                        <i class="fas fa-heading me-2"></i>
+                        Choose Us Heading
+                    </label>
+                    <input type="text" name="choose_heading" class="premium-input" 
+                           value="<%= abouts.choose_heading || '' %>" 
+                           placeholder="Enter why choose us heading...">
+                </div>
+                <div class="form-group-premium mb-4">
+                    <label class="form-label-premium">
+                        <i class="fas fa-align-left me-2"></i>
+                        Choose Us Description
+                    </label>
+                    <textarea id="description2" name="choose_description" class="premium-textarea" 
+                              placeholder="Describe why clients should choose you..."><%= abouts.choose_description || '' %></textarea>
+                </div>
+
+                <!-- Choose Us Images -->
+                <div class="row g-4">
+                    <% ['choose_image1_url','choose_image2_url','choose_image3_url'].forEach((imgKey, i) => { %>
+                        <div class="col-xl-4 col-md-6">
+                            <div class="image-upload-card">
+                                <div class="image-card-header">
+                                    <h6 class="mb-0 fw-bold">
+                                        <i class="fas fa-image me-2 text-primary"></i>
+                                        Feature Image <%= i+1 %>
+                                    </h6>
+                                </div>
+                                
+                                <div class="image-preview-container">
+                                    <% const chooseImgUrl = abouts[imgKey]; %>
+                                    <% if (chooseImgUrl) { %>
+                                        <div class="premium-image-wrapper">
+                                            <img src="<%= chooseImgUrl %>" 
+                                                 class="premium-image-preview" 
+                                                 alt="Feature Image <%= i+1 %>"
+                                                 onclick="previewImage('<%= chooseImgUrl %>')">
+                                            <div class="image-overlay">
+                                                <button type="button" class="btn-premium-icon" onclick="previewImage('<%= chooseImgUrl %>')">
+                                                    <i class="fas fa-expand"></i>
+                                                </button>
+                                                <span class="status-badge">Active</span>
+                                            </div>
+                                            <input type="hidden" name="existing_<%= imgKey %>" value="<%= chooseImgUrl %>">
+                                        </div>
+                                    <% } else { %>
+                                        <div class="empty-image-state">
+                                            <div class="empty-icon">
+                                                <i class="fas fa-cloud-upload-alt"></i>
+                                            </div>
+                                            <p class="empty-text">No Image Uploaded</p>
+                                            <small class="empty-subtext">Upload feature image</small>
+                                        </div>
+                                    <% } %>
+                                </div>
+
+                                <div class="upload-section">
+                                    <div class="file-input-wrapper">
+                                        <input type="file" name="<%= imgKey %>" id="file-<%= imgKey %>" 
+                                               class="premium-file-input" accept="image/*">
+                                        <label for="file-<%= imgKey %>" class="file-input-label">
+                                            <i class="fas fa-upload me-2"></i>
+                                            <%= chooseImgUrl ? 'Change Image' : 'Upload Image' %>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit Section for Table 2 -->
+        <div class="premium-submit-section">
+            <div class="submit-card">
+                <div class="submit-content">
+                    <i class="fas fa-chart-bar submit-icon"></i>
+                    <div>
+                        <h5 class="mb-1">Update Details & Statistics</h5>
+                        <p class="mb-0">Save changes to company details and statistics</p>
+                    </div>
+                </div>
+                <button type="submit" class="btn-premium">
+                    <i class="fas fa-save me-2"></i>
+                    Update Details
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Image Preview Modal -->
+<div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content premium-modal">
+            <div class="modal-header premium-modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-search me-2"></i>
+                    Image Preview
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body premium-modal-body text-center">
+                <img id="previewImage" src="" class="preview-image" alt="Preview">
+            </div>
         </div>
     </div>
 </div>
 
+<!-- Add Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-                        <!-- Images Section -->
-                        <div class="premium-card mb-5">
-                            <div class="premium-card-header d-flex align-items-center gap-3">
-                                <div class="premium-icon-small">
-                                    <i class="fas fa-images"></i>
-                                </div>
-                                <div>
-                                    <h4 class="mb-1 fw-bold">Images</h4>
-                                    <p class="mb-0 text-muted">Upload up to 2 images for About Us section</p>
-                                </div>
-                            </div>
-                            <div class="premium-card-body row g-4">
-                                <% ['image1','image2'].forEach((imgKey, i)=> { %>
-                                    <div class="col-xl-6 col-lg-6">
-                                        <div class="image-card">
-                                            <div class="image-card-body">
-                                                <% const imgUrl=about[imgKey + '_url' ]; %>
-                                                    <div class="image-preview-wrapper mb-3">
-                                                        <% if (imgUrl) { %>
-                                                            <div class="premium-image-container">
-                                                                <img src="<%= imgUrl %>" class="premium-image"
-                                                                    alt="Image <%= i+1 %>">
-                                                            </div>
-                                                            <input type="hidden" name="existing_<%= imgKey %>"
-                                                                value="<%= imgUrl %>">
-                                                            <% } else { %>
-                                                                <div class="empty-state">
-                                                                    <div class="empty-icon"><i
-                                                                            class="fas fa-cloud-upload-alt"></i></div>
-                                                                    <p class="empty-text">No Image</p>
-                                                                    <small class="empty-subtext">Upload to
-                                                                        preview</small>
-                                                                </div>
-                                                                <% } %>
-                                                    </div>
-                                                    <label class="upload-label">
-                                                        <i class="fas fa-camera me-2"></i> Update Image <%= i+1 %>
-                                                    </label>
-                                                    <input type="file" name="<%= imgKey %>" class="premium-file-input"
-                                                        accept="image/*" id="file-<%= imgKey %>">
-                                                    <label for="file-<%= imgKey %>" class="file-input-label">
-                                                        <i class="fas fa-upload me-2"></i> Choose File
-                                                    </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <% }) %>
-                            </div>
-                        </div>
+<!-- Load TinyMCE -->
+<script src="https://cdn.tiny.cloud/1/b0dlmco2b0daotuc268ppv708466zn6px6few9r7pt3v880y/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
-                        <!-- Submit Section -->
-                        <div class="premium-submit-section mt-4">
-                            <div class="submit-card">
-                                <div class="submit-content">
-                                    <i class="fas fa-rocket submit-icon"></i>
-                                    <div>
-                                        <h5 class="mb-1">Ready to Publish?</h5>
-                                        <p class="mb-0">Save changes to About Us section</p>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn-premium">
-                                    <i class="fas fa-bolt me-2"></i> Save Changes
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-        </div>
+<style>
+    /* Premium Color Scheme */
+    :root {
+        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --success-gradient: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        --premium-bg: #f8fafc;
+        --premium-border: #e2e8f0;
+        --premium-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
 
-        <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
-        <script>
-            CKEDITOR.replace('heading');
-            CKEDITOR.replace('description');
+    /* Premium Header */
+    .premium-header {
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
 
-            // File input preview
-            document.querySelectorAll('.premium-file-input').forEach(input => {
-                input.addEventListener('change', function (e) {
-                    const label = this.nextElementSibling;
-                    if (this.files.length > 0) {
-                        label.innerHTML = `<i class="fas fa-check me-2"></i>${this.files[0].name}`;
-                        label.style.borderColor = '#48bb78';
-                        label.style.background = '#f0fff4';
-                    }
+    .premium-icon {
+        width: 60px;
+        height: 60px;
+        background: var(--primary-gradient);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        box-shadow: var(--premium-shadow);
+    }
+
+    /* Premium Cards */
+    .premium-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: var(--premium-shadow);
+        border: 1px solid var(--premium-border);
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+    .premium-card-header {
+        background: var(--premium-bg);
+        padding: 2rem;
+        border-bottom: 1px solid var(--premium-border);
+    }
+
+    .premium-card-body {
+        padding: 2rem;
+    }
+
+    .premium-icon-small {
+        width: 50px;
+        height: 50px;
+        background: var(--primary-gradient);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+
+    /* Form Styles */
+    .form-group-premium {
+        margin-bottom: 2rem;
+    }
+
+    .stat-input-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-label-premium {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 0.8rem;
+        font-size: 1.1rem;
+    }
+
+    .premium-input {
+        width: 100%;
+        padding: 1.2rem 1.5rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        background: white;
+        resize: vertical;
+    }
+
+    .premium-input:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+        outline: none;
+        transform: translateY(-2px);
+    }
+
+    .premium-textarea {
+        width: 100%;
+        min-height: 150px;
+        padding: 1.5rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        font-size: 1rem;
+        line-height: 1.6;
+        transition: all 0.3s ease;
+        background: white;
+        resize: vertical;
+    }
+
+    .form-text {
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        color: #718096;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Image Upload Cards */
+    .image-upload-card {
+        background: white;
+        border: 1px solid var(--premium-border);
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+
+    .image-upload-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--premium-shadow);
+    }
+
+    .image-card-header {
+        padding: 1.5rem;
+        background: var(--premium-bg);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--premium-border);
+    }
+
+    .badge-premium {
+        background: var(--primary-gradient);
+        color: white;
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    /* Image Preview */
+    .image-preview-container {
+        padding: 1.5rem;
+    }
+
+    .premium-image-wrapper {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .premium-image-preview {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .premium-image-wrapper:hover .image-overlay {
+        opacity: 1;
+    }
+
+    .premium-image-wrapper:hover .premium-image-preview {
+        transform: scale(1.05);
+    }
+
+    .btn-premium-icon {
+        width: 45px;
+        height: 45px;
+        background: white;
+        border: none;
+        border-radius: 50%;
+        color: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        font-size: 1.1rem;
+    }
+
+    .btn-premium-icon:hover {
+        transform: scale(1.1);
+    }
+
+    .status-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: var(--success-gradient);
+        color: white;
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    /* Empty State */
+    .empty-image-state {
+        text-align: center;
+        padding: 2rem 1rem;
+        background: var(--premium-bg);
+        border: 2px dashed #cbd5e0;
+        border-radius: 12px;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .empty-icon {
+        font-size: 2rem;
+        color: #cbd5e0;
+        margin-bottom: 0.5rem;
+    }
+
+    .empty-text {
+        font-weight: 600;
+        color: #4a5568;
+        margin-bottom: 0.25rem;
+        font-size: 0.9rem;
+    }
+
+    .empty-subtext {
+        color: #718096;
+        font-size: 0.8rem;
+    }
+
+    /* Upload Section */
+    .upload-section {
+        padding: 1.5rem;
+        border-top: 1px solid var(--premium-border);
+    }
+
+    .file-input-wrapper {
+        position: relative;
+        margin-bottom: 0.5rem;
+    }
+
+    .premium-file-input {
+        display: none;
+    }
+
+    .file-input-label {
+        display: block;
+        padding: 0.8rem 1rem;
+        background: var(--premium-bg);
+        border: 2px dashed #cbd5e0;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+
+    .file-input-label:hover {
+        border-color: #667eea;
+        background: #f7fafc;
+        transform: translateY(-1px);
+    }
+
+    .file-help-text {
+        font-size: 0.8rem;
+        color: #718096;
+        text-align: center;
+    }
+
+    /* Submit Section */
+    .premium-submit-section {
+        background: var(--primary-gradient);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .submit-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+    }
+
+    .submit-content {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .submit-icon {
+        font-size: 2rem;
+        opacity: 0.9;
+    }
+
+    .btn-premium {
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255,255,255,0.3);
+        color: white;
+        padding: 0.8rem 2rem;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-premium:hover {
+        background: rgba(255,255,255,0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    /* Alert Styles */
+    .alert-premium-success {
+        background: var(--success-gradient);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        padding: 1rem 1.5rem;
+    }
+
+    /* Modal Styles */
+    .premium-modal {
+        border-radius: 20px;
+        border: none;
+        box-shadow: var(--premium-shadow);
+    }
+
+    .premium-modal-header {
+        background: var(--primary-gradient);
+        color: white;
+        border-radius: 20px 20px 0 0;
+        padding: 1.5rem 2rem;
+        border: none;
+    }
+
+    .premium-modal-body {
+        padding: 2rem;
+    }
+
+    .preview-image {
+        max-width: 100%;
+        max-height: 70vh;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    /* TinyMCE Customization */
+    .tox-tinymce {
+        border-radius: 12px !important;
+        border: 2px solid #e2e8f0 !important;
+    }
+
+    .tox:not(.tox-tinymce-inline) .tox-editor-header {
+        background: var(--premium-bg) !important;
+        border-bottom: 1px solid #e2e8f0 !important;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .premium-card-body {
+            padding: 1.5rem;
+        }
+        
+        .submit-card {
+            flex-direction: column;
+            gap: 1.5rem;
+            text-align: center;
+        }
+        
+        .image-card-header {
+            flex-direction: column;
+            gap: 1rem;
+            text-align: center;
+        }
+        
+        .premium-submit-section {
+            padding: 1.5rem;
+        }
+    }
+</style>
+
+<script>
+    // Initialize TinyMCE for all textareas
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize main description editor
+        tinymce.init({
+            selector: '#description, #description2',
+            plugins: 'anchor autolink charmap codesample emoticons link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist | emoticons charmap | removeformat',
+            menubar: false,
+            height: 300,
+            skin: 'oxide',
+            content_css: 'default',
+            branding: false
+        });
+
+        // Initialize other textarea editors
+        const textareas = [
+            'vision_description',
+            'mission_description', 
+            'goal_description',
+            'choose_description'
+        ];
+
+        textareas.forEach(textareaId => {
+            if (document.getElementById(textareaId)) {
+                tinymce.init({
+                    selector: `#${textareaId}`,
+                    plugins: 'lists link',
+                    toolbar: 'undo redo | bold italic | bullist numlist | link',
+                    menubar: false,
+                    height: 200,
+                    skin: 'oxide',
+                    branding: false
                 });
-            });
-        </script>
+            }
+        });
+    });
 
-        <%- include('../layouts/admin_layouts_footer') %>
+    // Image preview function
+    function previewImage(src) {
+        document.getElementById('previewImage').src = src;
+        const previewModal = new bootstrap.Modal(document.getElementById('imagePreviewModal'));
+        previewModal.show();
+    }
+
+    // File input handlers
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle file input changes for both forms
+        document.querySelectorAll('.premium-file-input').forEach(input => {
+            input.addEventListener('change', function(e) {
+                const label = this.nextElementSibling;
+                if (this.files.length > 0) {
+                    label.innerHTML = `<i class="fas fa-check me-2"></i>${this.files[0].name}`;
+                    label.style.borderColor = '#48bb78';
+                    label.style.background = '#f0fff4';
+                    
+                    // Preview image
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const previewContainer = this.closest('.image-upload-card').querySelector('.image-preview-container');
+                        previewContainer.innerHTML = `
+                            <div class="premium-image-wrapper">
+                                <img src="${e.target.result}" class="premium-image-preview" alt="Preview">
+                                <div class="image-overlay">
+                                    <button type="button" class="btn-premium-icon" onclick="previewImage('${e.target.result}')">
+                                        <i class="fas fa-expand"></i>
+                                    </button>
+                                    <span class="status-badge">New Upload</span>
+                                </div>
+                            </div>
+                        `;
+                    }.bind(this);
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        });
+
+        // Auto-hide success message
+        const successAlert = document.querySelector('.alert-premium-success');
+        if (successAlert) {
+            setTimeout(() => {
+                const bsAlert = new bootstrap.Alert(successAlert);
+                bsAlert.close();
+            }, 5000);
+        }
+    });
+</script>
+
+
+<%- include('../layouts/admin_layouts_footer') %>
