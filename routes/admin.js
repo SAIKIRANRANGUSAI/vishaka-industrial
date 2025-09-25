@@ -6,7 +6,10 @@ const multer = require("multer");
 const { uploadToCloudinary, deleteFromCloudinary } = require("../helpers/cloudinaryUpload");
 
 // Multer temp storage for uploads
-const upload = multer({ dest: "uploads/" });
+// const upload = multer({ dest: "uploads/" });
+// const multer = require("multer");
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 // -------- Login & Logout Routes --------
 router.get("/login", (req, res) => {
@@ -110,7 +113,7 @@ router.post(
         if (!file) return oldUrl || null;
 
         try {
-          const uploaded = await uploadToCloudinary(file.path, folder);
+          const uploaded = await uploadToCloudinary(file.buffer, folder);
 
           // Delete old image from Cloudinary if exists
           if (oldUrl) {
@@ -177,7 +180,7 @@ router.post("/services", upload.single("image"), async (req, res) => {
         let image_url = "";
 
         if (req.file) {
-            const uploaded = await uploadToCloudinary(req.file.path, "services");
+            const uploaded = await uploadToCloudinary(req.file.buffer, "services");
             image_url = uploaded.url;
         }
 
@@ -209,7 +212,7 @@ router.post("/services/:id/edit", upload.single("image"), async (req, res) => {
 
         // If new image uploaded
         if (req.file) {
-            const uploaded = await uploadToCloudinary(req.file.path, "services");
+            const uploaded = await uploadToCloudinary(req.file.buffer, "services");
             image_url = uploaded.url;
 
             // Delete old image
@@ -285,12 +288,12 @@ router.post("/about-us", upload.fields([{ name: "image1" }, { name: "image2" }])
     let image2_url = req.body.existing_image2 || existing.image2_url || null;
 
     if (files.image1) {
-      const uploaded1 = await uploadToCloudinary(files.image1[0].path, "about_us");
+      const uploaded1 = await uploadToCloudinary(files.image1[0].buffer, "about_us");
       image1_url = uploaded1.url;
     }
 
     if (files.image2) {
-      const uploaded2 = await uploadToCloudinary(files.image2[0].path, "about_us");
+      const uploaded2 = await uploadToCloudinary(files.image2[0].buffer, "about_us");
       image2_url = uploaded2.url;
     }
 
@@ -336,7 +339,7 @@ router.post("/about-us/update", upload.fields([
 
     for (let key of ["choose_image1_url", "choose_image2_url", "choose_image3_url"]) {
   if (files[key]) {
-    const uploaded = await uploadToCloudinary(files[key][0].path, "about_page");
+    const uploaded = await uploadToCloudinary(files[key][0].buffer, "about_page");
     uploadedImages[key] = uploaded.url; // use .url from your helper
   } else {
     uploadedImages[key] = data[`existing_${key}`] || null;
