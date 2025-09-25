@@ -9,7 +9,7 @@ const db = mysql.createPool({
   host: "46.250.225.169",
   user: "demo_colormo_usr",
   password: "QRdKdVpp3pnNhXBt",
-  database: "harvesttenderroots_website",
+  database: "vishaka_industrial",
   port: process.env.DB_PORT || 3306,
 });
 

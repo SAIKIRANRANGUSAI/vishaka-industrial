@@ -1,0 +1,826 @@
+<%- include('../layouts/admin_layouts_header', { title: 'Admin | Services', currentPage: 'services' }) %>
+<%- include('../layouts/admin_layouts_sidebar', { currentPage: 'services' }) %>
+
+<div class="container-fluid px-4 py-4">
+    <!-- Premium Header -->
+    <div class="premium-header mb-5">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="h3 fw-bold text-gradient mb-2">Services Management</h1>
+                <p class="text-muted mb-0">Manage your services portfolio with excellence</p>
+            </div>
+            <button class="btn-premium" data-bs-toggle="modal" data-bs-target="#addServiceModal">
+                <i class="fas fa-plus me-2"></i> Add New Service
+            </button>
+        </div>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <% if (typeof successMessage !== 'undefined' && successMessage) { %>
+        <div class="alert-premium-success alert-dismissible fade show mb-4" role="alert">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-check-circle me-3"></i>
+                <div class="fw-medium"><%= successMessage %></div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+    <% } %>
+    
+    <% if (typeof errorMessage !== 'undefined' && errorMessage) { %>
+        <div class="alert-premium-error alert-dismissible fade show mb-4" role="alert">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-exclamation-circle me-3"></i>
+                <div class="fw-medium"><%= errorMessage %></div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+    <% } %>
+
+    <!-- Services Table Section -->
+    <div class="premium-card">
+        <div class="premium-card-header">
+            <div class="d-flex align-items-center">
+                <div class="premium-icon-small me-3">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <div>
+                    <h4 class="mb-1 fw-bold">Current Services</h4>
+                    <p class="mb-0 text-muted"><%= typeof services !== 'undefined' ? services.length : 0 %> services available</p>
+                </div>
+            </div>
+        </div>
+        <div class="premium-card-body">
+            <div class="table-responsive">
+                <table class="table premium-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Slug</th>
+                            <th>Image</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (typeof services !== 'undefined' && services.length > 0) { %>
+                            <% services.forEach((service, index) => { %>
+                                <tr class="premium-table-row">
+                                    <td class="text-center fw-bold"><%= index + 1 %></td>
+                                    <td>
+                                        <div class="service-title">
+                                            <%- service.title %>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="description-tooltip">
+                                            <span class="description-preview">
+                                                <%- service.description ? service.description.replace(/<[^>]*>/g, '').substring(0, 80) + '...' : 'No description' %>
+                                            </span>
+                                            <% if (service.description && service.description.length > 80) { %>
+                                                <div class="tooltip-content">
+                                                    <%- service.description.replace(/<[^>]*>/g, '') %>
+                                                </div>
+                                            <% } %>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <code class="slug-badge"><%- service.slug %></code>
+                                    </td>
+                                    <td>
+                                        <% if (service.image_url) { %>
+                                            <div class="image-preview-small" onclick="previewImage('<%= service.image_url %>')">
+                                                <img src="<%= service.image_url %>" alt="<%- service.title %>">
+                                                <div class="image-overlay-small">
+                                                    <i class="fas fa-search-plus"></i>
+                                                </div>
+                                            </div>
+                                        <% } else { %>
+                                            <span class="no-image-badge">No image</span>
+                                        <% } %>
+                                    </td>
+                                    <td>
+                                        <span class="date-badge">
+                                            <%= new Date(service.created_at).toLocaleDateString() %>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn-action btn-edit" onclick="openEditModal(<%= service.id %>)">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn-action btn-delete" onclick="confirmDelete(<%= service.id %>, '<%- service.title.replace(/'/g, "\\'") %>')">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="7" class="text-center py-5">
+                                    <div class="empty-state-table">
+                                        <i class="fas fa-cogs fa-3x text-muted mb-3"></i>
+                                        <h5>No Services Found</h5>
+                                        <p class="text-muted">Add your first service to get started</p>
+                                        <button class="btn-premium mt-3" data-bs-toggle="modal" data-bs-target="#addServiceModal">
+                                            <i class="fas fa-plus me-2"></i> Add Service
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Service Modal -->
+<div class="modal fade" id="addServiceModal" tabindex="-1" aria-labelledby="addServiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content premium-modal">
+            <form action="/admin/services" method="POST" enctype="multipart/form-data" id="addServiceForm">
+                <div class="modal-header premium-modal-header">
+                    <h5 class="modal-title" id="addServiceModalLabel">
+                        <i class="fas fa-plus-circle me-2"></i>
+                        Add New Service
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body premium-modal-body">
+                    <div class="form-group-premium">
+                        <label class="form-label-premium">
+                            <i class="fas fa-heading me-2"></i>
+                            Title *
+                        </label>
+                        <input type="text" name="title" class="premium-input" placeholder="Enter service title" required>
+                    </div>
+                    
+                    <div class="form-group-premium">
+                        <label class="form-label-premium">
+                            <i class="fas fa-link me-2"></i>
+                            Slug *
+                        </label>
+                        <input type="text" name="slug" class="premium-input" placeholder="service-slug" required>
+                    </div>
+                    
+                    <div class="form-group-premium">
+                        <label class="form-label-premium">
+                            <i class="fas fa-align-left me-2"></i>
+                            Description
+                        </label>
+                        <textarea name="description" class="premium-textarea" rows="5" placeholder="Describe your service..."></textarea>
+                    </div>
+                    
+                    <div class="form-group-premium">
+                        <label class="form-label-premium">
+                            <i class="fas fa-image me-2"></i>
+                            Service Image
+                        </label>
+                        <div class="file-input-wrapper">
+                            <input type="file" name="image" class="premium-file-input" accept="image/*" id="addImage">
+                            <label for="addImage" class="file-input-label">
+                                <i class="fas fa-upload me-2"></i>
+                                Choose Image File
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer premium-modal-footer">
+                    <button type="submit" class="btn-premium">
+                        <i class="fas fa-save me-2"></i> Add Service
+                    </button>
+                    <button type="button" class="btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-2"></i> Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Service Modal -->
+<div class="modal fade" id="editServiceModal" tabindex="-1" aria-labelledby="editServiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content premium-modal">
+            <form id="editForm" method="POST" enctype="multipart/form-data">
+                <div class="modal-header premium-modal-header">
+                    <h5 class="modal-title" id="editServiceModalLabel">
+                        <i class="fas fa-edit me-2"></i>
+                        Edit Service
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body premium-modal-body">
+                    <input type="hidden" id="edit_id" name="id">
+                    
+                    <div class="form-group-premium">
+                        <label class="form-label-premium">
+                            <i class="fas fa-heading me-2"></i>
+                            Title *
+                        </label>
+                        <input type="text" id="edit_title" name="title" class="premium-input" required>
+                    </div>
+                    
+                    <div class="form-group-premium">
+                        <label class="form-label-premium">
+                            <i class="fas fa-link me-2"></i>
+                            Slug *
+                        </label>
+                        <input type="text" id="edit_slug" name="slug" class="premium-input" required>
+                    </div>
+                    
+                    <div class="form-group-premium">
+                        <label class="form-label-premium">
+                            <i class="fas fa-align-left me-2"></i>
+                            Description
+                        </label>
+                        <textarea id="edit_description" name="description" class="premium-textarea" rows="5"></textarea>
+                    </div>
+                    
+                    <div class="form-group-premium">
+                        <label class="form-label-premium">
+                            <i class="fas fa-image me-2"></i>
+                            Update Image
+                        </label>
+                        <div class="file-input-wrapper">
+                            <input type="file" name="image" class="premium-file-input" accept="image/*" id="editImage">
+                            <label for="editImage" class="file-input-label">
+                                <i class="fas fa-upload me-2"></i>
+                                Choose New Image
+                            </label>
+                        </div>
+                        <div id="currentImagePreview" class="current-image-preview mt-3"></div>
+                    </div>
+                </div>
+                <div class="modal-footer premium-modal-footer">
+                    <button type="submit" class="btn-premium">
+                        <i class="fas fa-save me-2"></i> Save Changes
+                    </button>
+                    <button type="button" class="btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-2"></i> Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content premium-modal">
+            <div class="modal-header premium-modal-header">
+                <h5 class="modal-title" id="deleteConfirmModalLabel">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    Confirm Deletion
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body premium-modal-body text-center">
+                <i class="fas fa-trash-alt fa-3x text-danger mb-3"></i>
+                <h5>Delete Service</h5>
+                <p>Are you sure you want to delete "<span id="deleteServiceName" class="fw-bold"></span>"?</p>
+                <p class="text-muted small">This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer premium-modal-footer justify-content-center">
+                <form id="deleteForm" method="POST" class="d-inline">
+                    <button type="submit" class="btn-danger">
+                        <i class="fas fa-trash-alt me-2"></i> Delete
+                    </button>
+                </form>
+                <button type="button" class="btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i> Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Image Preview Modal -->
+<div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-labelledby="imagePreviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content premium-modal">
+            <div class="modal-header premium-modal-header">
+                <h5 class="modal-title" id="imagePreviewModalLabel">
+                    <i class="fas fa-search me-2"></i>
+                    Image Preview
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body premium-modal-body text-center">
+                <img id="previewImage" src="" class="preview-image" alt="Preview">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+    /* Premium Styles */
+    :root {
+        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --success-gradient: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        --danger-gradient: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+        --premium-bg: #f8fafc;
+        --premium-border: #e2e8f0;
+        --premium-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+
+    /* Modal Centering */
+    .modal-dialog-centered {
+        display: flex;
+        align-items: center;
+        min-height: calc(100% - 1rem);
+    }
+
+    /* Alert Styles */
+    .alert-premium-success {
+        background: var(--success-gradient);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        padding: 1rem 1.5rem;
+    }
+
+    .alert-premium-error {
+        background: var(--danger-gradient);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        padding: 1rem 1.5rem;
+    }
+
+    .premium-header {
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .premium-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: var(--premium-shadow);
+        border: 1px solid var(--premium-border);
+        overflow: hidden;
+    }
+
+    .premium-card-header {
+        background: var(--premium-bg);
+        padding: 2rem;
+        border-bottom: 1px solid var(--premium-border);
+    }
+
+    .premium-card-body {
+        padding: 2rem;
+    }
+
+    .premium-icon-small {
+        width: 50px;
+        height: 50px;
+        background: var(--primary-gradient);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+
+    /* Premium Table Styles */
+    .premium-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .premium-table th {
+        background: var(--primary-gradient);
+        color: white;
+        font-weight: 600;
+        padding: 1.2rem 1rem;
+        border: none;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .premium-table td {
+        padding: 1.2rem 1rem;
+        border-bottom: 1px solid var(--premium-border);
+        vertical-align: middle;
+    }
+
+    .premium-table-row:hover {
+        background: rgba(102, 126, 234, 0.04);
+        transform: translateX(5px);
+        transition: all 0.3s ease;
+    }
+
+    /* Description Tooltip */
+    .description-tooltip {
+        position: relative;
+        cursor: pointer;
+        max-width: 300px;
+    }
+
+    .description-preview {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    .tooltip-content {
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #2d3748;
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        width: 300px;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        font-size: 0.85rem;
+        line-height: 1.4;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .description-tooltip:hover .tooltip-content {
+        opacity: 1;
+        visibility: visible;
+        bottom: calc(100% + 10px);
+    }
+
+    /* Image Preview */
+    .image-preview-small {
+        position: relative;
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .image-preview-small img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .image-overlay-small {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        color: white;
+    }
+
+    .image-preview-small:hover {
+        transform: scale(1.1);
+    }
+
+    .image-preview-small:hover .image-overlay-small {
+        opacity: 1;
+    }
+
+    /* Badges */
+    .slug-badge, .no-image-badge, .date-badge {
+        padding: 0.3rem 0.6rem;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+
+    .slug-badge {
+        background: #edf2f7;
+        color: #4a5568;
+        font-family: monospace;
+    }
+
+    .no-image-badge {
+        background: #fed7d7;
+        color: #c53030;
+    }
+
+    .date-badge {
+        background: #e6fffa;
+        color: #234e52;
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .btn-action {
+        width: 35px;
+        height: 35px;
+        border: none;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+    }
+
+    .btn-edit {
+        background: #e6f3ff;
+        color: #3182ce;
+    }
+
+    .btn-edit:hover {
+        background: #3182ce;
+        color: white;
+        transform: scale(1.1);
+    }
+
+    .btn-delete {
+        background: #fed7d7;
+        color: #e53e3e;
+    }
+
+    .btn-delete:hover {
+        background: #e53e3e;
+        color: white;
+        transform: scale(1.1);
+    }
+
+    /* Premium Modal */
+    .premium-modal {
+        border-radius: 20px;
+        border: none;
+        box-shadow: var(--premium-shadow);
+    }
+
+    .modal-dialog-centered {
+        min-height: calc(100% - 3.5rem);
+    }
+
+    .premium-modal-header {
+        background: var(--primary-gradient);
+        color: white;
+        border-radius: 20px 20px 0 0;
+        padding: 1.5rem 2rem;
+        border: none;
+    }
+
+    .premium-modal-body {
+        padding: 2rem;
+    }
+
+    .premium-modal-footer {
+        border-radius: 0 0 20px 20px;
+        padding: 1.5rem 2rem;
+        border-top: 1px solid var(--premium-border);
+    }
+
+    /* Buttons */
+    .btn-premium {
+        background: var(--primary-gradient);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-premium:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-secondary {
+        background: #e2e8f0;
+        color: #4a5568;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+        background: #cbd5e0;
+    }
+
+    .btn-danger {
+        background: var(--danger-gradient);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-danger:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(229, 62, 62, 0.3);
+    }
+
+    /* Form Styles */
+    .form-group-premium {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label-premium {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 0.5rem;
+    }
+
+    .premium-input, .premium-textarea {
+        width: 100%;
+        padding: 1rem 1.2rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+    .premium-input:focus, .premium-textarea:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        outline: none;
+    }
+
+    .premium-textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    /* File Input */
+    .file-input-wrapper {
+        position: relative;
+    }
+
+    .premium-file-input {
+        display: none;
+    }
+
+    .file-input-label {
+        display: block;
+        padding: 1rem 1.5rem;
+        background: var(--premium-bg);
+        border: 2px dashed #cbd5e0;
+        border-radius: 10px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+    .file-input-label:hover {
+        border-color: #667eea;
+        background: #f7fafc;
+    }
+
+    /* Preview Image */
+    .preview-image {
+        max-width: 100%;
+        max-height: 70vh;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+</style>
+
+<script>
+    // Services data - safely handle undefined services
+    const servicesData = {
+        <% if (typeof services !== 'undefined') { %>
+            <% services.forEach(service => { %>
+                <%= service.id %>: {
+                    title: `<%= service.title.replace(/'/g, "\\'") %>`,
+                    slug: `<%= service.slug.replace(/'/g, "\\'") %>`,
+                    description: `<%= service.description ? service.description.replace(/'/g, "\\'") : '' %>`,
+                    image: "<%= service.image_url || '' %>"
+                },
+            <% }) %>
+        <% } %>
+    };
+
+    // Edit Modal functionality
+    function openEditModal(id) {
+        const service = servicesData[id];
+        if (!service) {
+            alert('Service data not found!');
+            return;
+        }
+
+        // Set form action
+        document.getElementById('editForm').action = `/admin/services/${id}/edit`;
+        
+        // Fill form data
+        document.getElementById('edit_id').value = id;
+        document.getElementById('edit_title').value = service.title;
+        document.getElementById('edit_slug').value = service.slug;
+        document.getElementById('edit_description').value = service.description;
+
+        // Show current image
+        const previewContainer = document.getElementById('currentImagePreview');
+        previewContainer.innerHTML = '';
+        
+        if (service.image) {
+            const imgWrapper = document.createElement('div');
+            imgWrapper.className = 'text-center';
+            imgWrapper.innerHTML = `
+                <p class="small text-muted mb-2">Current Image:</p>
+                <img src="${service.image}" alt="Current Image" 
+                     class="img-thumbnail" style="max-width: 200px; cursor: pointer;"
+                     onclick="previewImage('${service.image}')">
+            `;
+            previewContainer.appendChild(imgWrapper);
+        } else {
+            previewContainer.innerHTML = '<p class="text-muted small">No image uploaded</p>';
+        }
+
+        // Show modal
+        const editModal = new bootstrap.Modal(document.getElementById('editServiceModal'));
+        editModal.show();
+    }
+
+    // Delete Confirmation
+    function confirmDelete(id, title) {
+        document.getElementById('deleteServiceName').textContent = title;
+        document.getElementById('deleteForm').action = `/admin/services/${id}/delete`;
+        
+        const deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+        deleteModal.show();
+    }
+
+    // Image preview function
+    function previewImage(src) {
+        document.getElementById('previewImage').src = src;
+        const previewModal = new bootstrap.Modal(document.getElementById('imagePreviewModal'));
+        previewModal.show();
+    }
+
+    // File input change handlers
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add service modal file input
+        const addImageInput = document.getElementById('addImage');
+        if (addImageInput) {
+            addImageInput.addEventListener('change', function() {
+                const label = this.nextElementSibling;
+                if (this.files.length > 0) {
+                    label.innerHTML = `<i class="fas fa-check me-2"></i>${this.files[0].name}`;
+                    label.style.borderColor = '#48bb78';
+                    label.style.background = '#f0fff4';
+                }
+            });
+        }
+
+        // Edit service modal file input
+        const editImageInput = document.getElementById('editImage');
+        if (editImageInput) {
+            editImageInput.addEventListener('change', function() {
+                const label = this.nextElementSibling;
+                if (this.files.length > 0) {
+                    label.innerHTML = `<i class="fas fa-check me-2"></i>${this.files[0].name}`;
+                    label.style.borderColor = '#48bb78';
+                    label.style.background = '#f0fff4';
+                }
+            });
+        }
+
+        // Auto-hide alerts after 5 seconds
+        const alerts = document.querySelectorAll('.alert-premium-success, .alert-premium-error');
+        alerts.forEach(alert => {
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    const bsAlert = new bootstrap.Alert(alert);
+                    bsAlert.close();
+                }
+            }, 5000);
+        });
+    });
+</script>
+
+<%- include('../layouts/admin_layouts_footer') %>

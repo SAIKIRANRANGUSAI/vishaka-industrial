@@ -1,0 +1,159 @@
+<%- include('../layouts/admin_layouts_header', { title: 'Admin | About Us' , currentPage: 'about-us' }) %>
+    <%- include('../layouts/admin_layouts_sidebar', { currentPage: 'about-us' }) %>
+
+        <div class="container-fluid px-4 py-4">
+            <!-- Premium Header -->
+            <div class="premium-header mb-5">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h3 fw-bold text-gradient mb-2">About Us Management</h1>
+                        <p class="text-muted mb-0">Update your company's story and showcase it elegantly</p>
+                    </div>
+                    <div class="premium-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                </div>
+            </div>
+
+            <% if (successMessage) { %>
+                <div class="alert alert-premium alert-dismissible fade show mb-4" role="alert">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-check-circle me-3"></i>
+                        <div class="fw-medium">
+                            <%= successMessage %>
+                        </div>
+                        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+                    </div>
+                </div>
+                <% } %>
+
+                    <form action="/admin/about-us" method="POST" enctype="multipart/form-data">
+                        <!-- Heading Section -->
+                        <div class="premium-card mb-5">
+                            <div class="premium-card-header d-flex align-items-center gap-3">
+                                <div class="premium-icon-small">
+                                    <i class="fas fa-heading"></i>
+                                </div>
+                                <div>
+                                    <h4 class="mb-1 fw-bold">Heading</h4>
+                                    <p class="mb-0 text-muted">Your main headline for About Us</p>
+                                </div>
+                            </div>
+                            <div class="premium-card-body">
+                                <textarea name="heading" id="heading"
+                                    class="premium-textarea"><%= about.heading || '' %></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Description Section -->
+                        <!-- Description Section -->
+<div class="content-group">
+    <div class="content-label">
+        <i class="fas fa-align-left"></i>
+        <div>
+            <h6 class="mb-1">Detailed Description</h6>
+            <small>Tell your story with clarity</small>
+        </div>
+    </div>
+    <div class="content-input">
+        <textarea id="offer_description" 
+          name="offer_description"
+          rows="10"
+          placeholder="Describe your offerings with passion and precision..."><%= about.description || '' %></textarea>
+
+        <div class="input-helper">
+            <i class="fas fa-info-circle me-1"></i>
+            Use the editor to format text, add links, images, and more.
+        </div>
+    </div>
+</div>
+
+
+                        <!-- Images Section -->
+                        <div class="premium-card mb-5">
+                            <div class="premium-card-header d-flex align-items-center gap-3">
+                                <div class="premium-icon-small">
+                                    <i class="fas fa-images"></i>
+                                </div>
+                                <div>
+                                    <h4 class="mb-1 fw-bold">Images</h4>
+                                    <p class="mb-0 text-muted">Upload up to 2 images for About Us section</p>
+                                </div>
+                            </div>
+                            <div class="premium-card-body row g-4">
+                                <% ['image1','image2'].forEach((imgKey, i)=> { %>
+                                    <div class="col-xl-6 col-lg-6">
+                                        <div class="image-card">
+                                            <div class="image-card-body">
+                                                <% const imgUrl=about[imgKey + '_url' ]; %>
+                                                    <div class="image-preview-wrapper mb-3">
+                                                        <% if (imgUrl) { %>
+                                                            <div class="premium-image-container">
+                                                                <img src="<%= imgUrl %>" class="premium-image"
+                                                                    alt="Image <%= i+1 %>">
+                                                            </div>
+                                                            <input type="hidden" name="existing_<%= imgKey %>"
+                                                                value="<%= imgUrl %>">
+                                                            <% } else { %>
+                                                                <div class="empty-state">
+                                                                    <div class="empty-icon"><i
+                                                                            class="fas fa-cloud-upload-alt"></i></div>
+                                                                    <p class="empty-text">No Image</p>
+                                                                    <small class="empty-subtext">Upload to
+                                                                        preview</small>
+                                                                </div>
+                                                                <% } %>
+                                                    </div>
+                                                    <label class="upload-label">
+                                                        <i class="fas fa-camera me-2"></i> Update Image <%= i+1 %>
+                                                    </label>
+                                                    <input type="file" name="<%= imgKey %>" class="premium-file-input"
+                                                        accept="image/*" id="file-<%= imgKey %>">
+                                                    <label for="file-<%= imgKey %>" class="file-input-label">
+                                                        <i class="fas fa-upload me-2"></i> Choose File
+                                                    </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% }) %>
+                            </div>
+                        </div>
+
+                        <!-- Submit Section -->
+                        <div class="premium-submit-section mt-4">
+                            <div class="submit-card">
+                                <div class="submit-content">
+                                    <i class="fas fa-rocket submit-icon"></i>
+                                    <div>
+                                        <h5 class="mb-1">Ready to Publish?</h5>
+                                        <p class="mb-0">Save changes to About Us section</p>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn-premium">
+                                    <i class="fas fa-bolt me-2"></i> Save Changes
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+        </div>
+
+        <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+        <script>
+            CKEDITOR.replace('heading');
+            CKEDITOR.replace('description');
+
+            // File input preview
+            document.querySelectorAll('.premium-file-input').forEach(input => {
+                input.addEventListener('change', function (e) {
+                    const label = this.nextElementSibling;
+                    if (this.files.length > 0) {
+                        label.innerHTML = `<i class="fas fa-check me-2"></i>${this.files[0].name}`;
+                        label.style.borderColor = '#48bb78';
+                        label.style.background = '#f0fff4';
+                    }
+                });
+            });
+        </script>
+
+        <%- include('../layouts/admin_layouts_footer') %>

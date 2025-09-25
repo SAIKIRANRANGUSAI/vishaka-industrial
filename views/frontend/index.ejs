@@ -1,71 +1,62 @@
- <%- include('partials/header') %>
+<%- include('partials/header') %>
 
-    <div class="hero-3" id="hero">
-      <div class="swiper hero-slider-3" id="heroSlide3">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="hero-inner">
-              <img src="/images/slider-image-1.jpg" />
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="hero-inner">
-              <img src="/images/slider-image-2.jpg" />
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="hero-inner">
-              <img src="/images/slider-image-3.jpg" />
-            </div>
+  <div class="hero-3" id="hero">
+    <div class="swiper hero-slider-3" id="heroSlide3">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="hero-inner">
+            <img src="<%= hero1 %>" />
           </div>
         </div>
-        <div class="hero3-wrapper">
-          <div class="container-fluid">
-            <div
-              class="hero3-featuredbox d-flex justify-content-end align-items-end"
-            >
-              <div class="hero-3thumbs">
-                <div class="hero3-swiper-custom">
-                  <button
-                    data-slider-prev="#heroSlide3"
-                    class="swiper-button-next"
-                  >
-                    <img src="/images/icon/hero-arrow-right.svg" alt="" />
-                  </button>
-                  <div class="swiper-pagination"></div>
-                  <button
-                    data-slider-next="#heroSlide3"
-                    class="swiper-button-prev"
-                  >
-                    <img src="/images/icon/hero-arrow-left.svg" alt="" />
-                  </button>
-                </div>
-                <div class="swiper hero3Thumbs d-none d-xl-block">
-                  <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                      <div class="hero-inner">
-                        <div class="hero3-card">
-                          <div class="hero-img">
-                            <img src="/images/slider-image-1.jpg" alt="" />
-                          </div>
+        <div class="swiper-slide">
+          <div class="hero-inner">
+            <img src="<%= hero2 %>" />
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="hero-inner">
+            <img src="<%= hero3 %>" />
+          </div>
+        </div>
+      </div>
+      <div class="hero3-wrapper">
+        <div class="container-fluid">
+          <div class="hero3-featuredbox d-flex justify-content-end align-items-end">
+            <div class="hero-3thumbs">
+              <div class="hero3-swiper-custom">
+                <button data-slider-prev="#heroSlide3" class="swiper-button-next">
+                  <img src="/images/icon/hero-arrow-right.svg" alt="" />
+                </button>
+                <div class="swiper-pagination"></div>
+                <button data-slider-next="#heroSlide3" class="swiper-button-prev">
+                  <img src="/images/icon/hero-arrow-left.svg" alt="" />
+                </button>
+              </div>
+              <div class="swiper hero3Thumbs d-none d-xl-block">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <div class="hero-inner">
+                      <div class="hero3-card">
+                        <div class="hero-img">
+                          <img src="<%= hero1 %>" alt="hero imaeg 1" />
                         </div>
                       </div>
                     </div>
-                    <div class="swiper-slide">
-                      <div class="hero-inner">
-                        <div class="hero3-card">
-                          <div class="hero-img">
-                            <img src="/images/slider-image-2.jpg" alt="" />
-                          </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="hero-inner">
+                      <div class="hero3-card">
+                        <div class="hero-img">
+                          <img src="<%= hero2 %>" alt="hero image 2" />
                         </div>
                       </div>
                     </div>
-                    <div class="swiper-slide">
-                      <div class="hero-inner">
-                        <div class="hero3-card">
-                          <div class="hero-img">
-                            <img src="/images/slider-image-3.jpg" alt="" />
-                          </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="hero-inner">
+                      <div class="hero3-card">
+                        <div class="hero-img">
+                          <img src="<%= hero3 %>" alt="hero image 3" />
                         </div>
                       </div>
                     </div>
@@ -75,629 +66,543 @@
             </div>
           </div>
         </div>
-        <div class="scroll-down">
-          <a href="#service-sec" class="scroll-wrap"
-            ><span><img src="/images/icon/down-arrow.svg" alt="" /></span
-            >Scroll Down</a
-          >
-        </div>
+      </div>
+      <div class="scroll-down">
+        <a href="#service-sec" class="scroll-wrap"><span><img src="/images/icon/down-arrow.svg" alt="" /></span>Scroll
+          Down</a>
       </div>
     </div>
+  </div>
 
-    <section   class="position-relative bg-top-center overflow-hidden servcie-section"  id="service-sec">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <div class="title-area service-title-box text-center">
-              <span class="sub-title mb-15 text-anime-style-2"
-                >What We’re Offering</span
-              >
-              <h2 class="sec-title text-anime-style-3">
-                Comprehensive Protection Solutions
+  <section class="position-relative bg-top-center overflow-hidden servcie-section" id="service-sec">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="title-area service-title-box text-center">
+            <span class="sub-title mb-15 text-anime-style-2">What We’re Offering</span>
+            <h2 class="sec-title text-anime-style-3">
+              <%= offer_title %>
+            </h2>
+            <div class="sec-text mb-50 wow fadeInUp" data-wow-delay=".3s">
+              <%- offer_description %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="services-container">
+  <div class="row gy-30 justify-content-center">
+    <% services.forEach(service => { %>
+      <div class="col-xl-3 col-md-6" id="service-<%= service.slug %>">
+        <div class="service-box service-style-1">
+          <div class="service-img">
+            <a href="/service-details/<%= service.slug %>#<%= service.slug %>">
+              <img src="<%= service.image_url %>" alt="<%= service.title %>" />
+            </a>
+          </div>
+          <div class="service-content">
+            <h3 class="box-title">
+              <a href="/service-details/<%= service.slug %>#<%= service.slug %>">
+                <%= service.title %>
+              </a>
+            </h3>
+            <p class="service-box_text">
+              <%= service.description.substring(0, 100) %>...
+            </p>
+            <a class="th-btn style4" href="/service-details/<%= service.slug %>#<%= service.slug %>">
+              Read More <i class="fa-light fa-arrow-right-long"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination mt-4 text-center">
+    <% for (let i=1; i <= totalPages; i++) { %>
+      <button class="th-btn style4 page-btn <%= currentPage == i ? 'active' : '' %>" data-page="<%= i %>">
+        <%= i %>
+      </button>
+    <% } %>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("services-container");
+
+    // Pagination
+    container.addEventListener("click", async (e) => {
+      if (e.target.classList.contains("page-btn")) {
+        const page = e.target.dataset.page;
+        try {
+          const res = await fetch(`/services-pagination?page=${page}`);
+          const html = await res.text();
+          container.innerHTML = html;
+          container.scrollIntoView({ behavior: "smooth" });
+        } catch (err) {
+          console.error("Pagination error:", err);
+        }
+      }
+    });
+  });
+</script>
+
+<style>
+  .pagination {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .pagination .th-btn {
+    padding: 8px 18px;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+
+  .pagination .th-btn.active {
+    background-color: #ff6600;
+    color: #fff;
+  }
+
+  .pagination .th-btn:hover {
+    background-color: #ff4500;
+    color: #fff;
+  }
+
+
+
+
+  [id] {
+  scroll-margin-top: 200px; /* Adjust this to the actual height of your navbar */
+}
+</style>
+
+    </div>
+
+    </div>
+  </section>
+
+  <div class="bg-smoke position-relative overflow-hidden space" id="about-sec">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-6">
+          <div class="img-box4 ab5-imgbox space-bottom text-end">
+            <div class="img1 reveal">
+              <img src="/images/about-image-1.jpg" alt="About" />
+            </div>
+            <div class="img2">
+              <img src="/images/about-image-2.jpg" alt="About" />
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6">
+          <div class="ab5-wrapp mt-40">
+            <div class="title-area">
+              <span class="sub-title style1 text-anime-style-2">About Us</span>
+              <h2 class="sec-title text-anime-style-2">
+                About Visakha Industrial Security Force
               </h2>
-              <p class="sec-text mb-50 wow fadeInUp" data-wow-delay=".3s">
+              <p class="sec-text mb-30 wow fadeInUp" data-wow-delay=".2s">
                 It is a long established fact that a reader will be distracted
                 by the readable content of a page when looking at its layout.
+                The point of using Lorem Ipsum is that it has a more-or-less
+                normal distribution of letters, as opposed to using 'Content
+                here, content here', making it look like readable English.
+              </p>
+              <p class="sec-text mb-30 wow fadeInUp" data-wow-delay=".2s">
+                It is a long established fact that a reader will be distracted
+                by the readable content of a page when looking at its layout.
+                The point of using Lorem Ipsum is that it has a more-or-less
+                normal distribution of letters, as opposed to using 'Content
+                here, content here', making it look like readable English.
               </p>
             </div>
-          </div>
-        </div>
-        <div class="service-area">
-          <div class="row gy-30 justify-content-center">
-            <div class="col-xl-3 col-md-6">
-              <div class="service-box service-style-1">
-                <div class="service-img">
-                  <a href="service-details"
-                    ><img src="/images/service-image-1.jpg" alt=""
-                  /></a>
-                </div>
-                <div class="service-content">
-                  <h3 class="box-title">
-                    <a href="service-details">Security guards </a>
-                  </h3>
-                  <p class="service-box_text">
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking at
-                    its layout. The point of using Lorem Ipsum is that
-                  </p>
-                  <a class="th-btn style4" href="service-details"
-                    >Read More <i class="fa-light fa-arrow-right-long"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-md-6">
-              <div class="service-box service-style-1">
-                <div class="service-img">
-                  <a href=""
-                    ><img src="/images/service-image-2.jpg" alt=""
-                  /></a>
-                </div>
-                <div class="service-content">
-                  <h3 class="box-title">
-                    <a href="service-details">Housekeeping and Conservancy</a>
-                  </h3>
-                  <p class="service-box_text">
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking at
-                    its layout. The point of using Lorem Ipsum is that
-                  </p>
-                  <a class="th-btn style4" href="service-details"
-                    >Read More <i class="fa-light fa-arrow-right-long"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-md-6">
-              <div class="service-box service-style-1">
-                <div class="service-img">
-                  <a href=""
-                    ><img src="/images/service-image-3.jpg" alt=""
-                  /></a>
-                </div>
-                <div class="service-content">
-                  <h3 class="box-title">
-                    <a href="service-details">Data Entry Operator </a>
-                  </h3>
-                  <p class="service-box_text">
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking at
-                    its layout. The point of using Lorem Ipsum is that
-                  </p>
-                  <a class="th-btn style4" href="service-details"
-                    >Read More <i class="fa-light fa-arrow-right-long"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-md-6">
-              <div class="service-box service-style-1">
-                <div class="service-img">
-                  <a href=""
-                    ><img src="/images/service-image-4.jpg" alt=""
-                  /></a>
-                </div>
-                <div class="service-content">
-                  <h3 class="box-title">
-                    <a href="service-details">All types of Manpower Services</a>
-                  </h3>
-                  <p class="service-box_text">
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking at
-                    its layout. The point of using Lorem Ipsum is that
-                  </p>
-                  <a class="th-btn style4" href="service-details"
-                    >Read More <i class="fa-light fa-arrow-right-long"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <div  class="bg-smoke position-relative overflow-hidden space" id="about-sec"  >
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-6">
-            <div class="img-box4 ab5-imgbox space-bottom text-end">
-              <div class="img1 reveal">
-                <img src="/images/about-image-1.jpg" alt="About" />
-              </div>
-              <div class="img2">
-                <img src="/images/about-image-2.jpg" alt="About" />
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-6">
-            <div class="ab5-wrapp mt-40">
-              <div class="title-area">
-                <span class="sub-title style1 text-anime-style-2"
-                  >About Us</span
-                >
-                <h2 class="sec-title text-anime-style-2">
-                  About Visakha Industrial Security Force
-                </h2>
-                <p class="sec-text mb-30 wow fadeInUp" data-wow-delay=".2s">
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution of letters, as opposed to using 'Content
-                  here, content here', making it look like readable English.
-                </p>
-                <p class="sec-text mb-30 wow fadeInUp" data-wow-delay=".2s">
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution of letters, as opposed to using 'Content
-                  here, content here', making it look like readable English.
-                </p>
-              </div>
-
-              <div class="mt-35 wow fadeInUp" data-wow-delay=".5s">
-                <a href="about" class="th-btn th-radius th-icon"
-                  >Learn More <i class="fa-light fa-arrow-right-long"></i
-                ></a>
-              </div>
+            <div class="mt-35 wow fadeInUp" data-wow-delay=".5s">
+              <a href="about" class="th-btn th-radius th-icon">Learn More <i
+                  class="fa-light fa-arrow-right-long"></i></a>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="brand-sec space-top space-bottom">
-      <div class="container th-container4">
-        <p class="sec-note text-center mb-30">
-          Trusted by 30+ of the world's most popular companies
-        </p>
-        <div
-          class="swiper th-slider brandSlider1"
-          id="brandSlider1"
-          data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"2"},"768":{"slidesPerView":"3"},"992":{"slidesPerView":"3"},"1300":{"slidesPerView":"7"},"1400":{"slidesPerView":"7"}}}'
-        >
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <div class="inner-client-div">
-                <a href="#">
-                  <img
-                    class="original"
-                    src="/images/client-log-img-1.png"
-                    alt="Brand Logo"
-                /></a>
-              </div>
+  <div class="brand-sec space-top space-bottom">
+    <div class="container th-container4">
+      <p class="sec-note text-center mb-30">
+        Trusted by 30+ of the world's most popular companies
+      </p>
+      <div class="swiper th-slider brandSlider1" id="brandSlider1"
+        data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"2"},"768":{"slidesPerView":"3"},"992":{"slidesPerView":"3"},"1300":{"slidesPerView":"7"},"1400":{"slidesPerView":"7"}}}'>
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="inner-client-div">
+              <a href="#">
+                <img class="original" src="/images/client-log-img-1.png" alt="Brand Logo" /></a>
             </div>
-            <div class="swiper-slide">
-              <div class="inner-client-div">
-                <a href="#">
-                  <img
-                    class="original"
-                    src="/images/client-log-img-2.png"
-                    alt="Brand Logo"
-                /></a>
-              </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="inner-client-div">
+              <a href="#">
+                <img class="original" src="/images/client-log-img-2.png" alt="Brand Logo" /></a>
             </div>
-            <div class="swiper-slide">
-              <div class="inner-client-div">
-                <a href="#">
-                  <img
-                    class="original"
-                    src="/images/client-log-img-3.png"
-                    alt="Brand Logo"
-                /></a>
-              </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="inner-client-div">
+              <a href="#">
+                <img class="original" src="/images/client-log-img-3.png" alt="Brand Logo" /></a>
             </div>
-            <div class="swiper-slide">
-              <div class="inner-client-div">
-                <a href="#">
-                  <img
-                    class="original"
-                    src="/images/client-log-img-4.png"
-                    alt="Brand Logo"
-                /></a>
-              </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="inner-client-div">
+              <a href="#">
+                <img class="original" src="/images/client-log-img-4.png" alt="Brand Logo" /></a>
             </div>
-            <div class="swiper-slide">
-              <div class="inner-client-div">
-                <a href="#">
-                  <img
-                    class="original"
-                    src="/images/client-log-img-5.png"
-                    alt="Brand Logo"
-                /></a>
-              </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="inner-client-div">
+              <a href="#">
+                <img class="original" src="/images/client-log-img-5.png" alt="Brand Logo" /></a>
             </div>
-            <div class="swiper-slide">
-              <div class="inner-client-div">
-                <a href="#">
-                  <img
-                    class="original"
-                    src="/images/client-log-img-6.png"
-                    alt="Brand Logo"
-                /></a>
-              </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="inner-client-div">
+              <a href="#">
+                <img class="original" src="/images/client-log-img-6.png" alt="Brand Logo" /></a>
             </div>
+          </div>
 
-            <div class="swiper-slide">
-              <div class="inner-client-div">
-                <a href="#">
-                  <img
-                    class="original"
-                    src="/images/client-log-img-7.png"
-                    alt="Brand Logo"
-                /></a>
-              </div>
+          <div class="swiper-slide">
+            <div class="inner-client-div">
+              <a href="#">
+                <img class="original" src="/images/client-log-img-7.png" alt="Brand Logo" /></a>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="case-area space">
-      <div class="container">
-        <div class="row justify-content-center mb-4 text-center">
-          <div class="col-md-9">
-            <span class="sub-title">Our Gallery</span>
-            <h2 class="sec-title text-center mb-30">
-              Our Recent Project Gallery
+  <div class="case-area space">
+    <div class="container">
+      <div class="row justify-content-center mb-4 text-center">
+        <div class="col-md-9">
+          <span class="sub-title">Our Gallery</span>
+          <h2 class="sec-title text-center mb-30">
+            Our Recent Project Gallery
+          </h2>
+        </div>
+      </div>
+      <div class="row gy-4">
+        <div class="col-lg-4 filter-item">
+          <div class="case-box style2 inner-style1">
+            <div class="case-img global-img">
+              <img src="/images/gallery-1.jpg" alt="gallery image" />
+              <a href="/images/gallery-1.jpg" class="icon-btn popup-image"><i
+                  class="fa-light fa-arrow-right-long"></i></a>
+            </div>
+            <div class="case-action">
+              <a href="#!" class="case-btn"><i class="fa-light fa-arrow-right-long"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 filter-item">
+          <div class="case-box style2 inner-style1">
+            <div class="case-img global-img">
+              <img src="/images/gallery-2.jpg" alt="gallery image" />
+              <a href="/images/gallery-2.jpg" class="icon-btn popup-image"><i
+                  class="fa-light fa-arrow-right-long"></i></a>
+            </div>
+            <div class="case-action">
+              <a href="#!" class="case-btn"><i class="fa-light fa-arrow-right-long"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 filter-item">
+          <div class="case-box style2 inner-style1">
+            <div class="case-img global-img">
+              <img src="/images/gallery-3.jpg" alt="gallery image" />
+              <a href="/images/gallery-3.jpg" class="icon-btn popup-image"><i
+                  class="fa-light fa-arrow-right-long"></i></a>
+            </div>
+            <div class="case-action">
+              <a href="#!" class="case-btn"><i class="fa-light fa-arrow-right-long"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 filter-item">
+          <div class="case-box style2 inner-style1">
+            <div class="case-img global-img">
+              <img src="/images/gallery-1.jpg" alt="gallery image" />
+              <a href="/images/gallery-1.jpg" class="icon-btn popup-image"><i
+                  class="fa-light fa-arrow-right-long"></i></a>
+            </div>
+            <div class="case-action">
+              <a href="#!" class="case-btn"><i class="fa-light fa-arrow-right-long"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 filter-item">
+          <div class="case-box style2 inner-style1">
+            <div class="case-img global-img">
+              <img src="/images/gallery-2.jpg" alt="gallery image" />
+              <a href="/images/gallery-2.jpg" class="icon-btn popup-image"><i
+                  class="fa-light fa-arrow-right-long"></i></a>
+            </div>
+            <div class="case-action">
+              <a href="#!" class="case-btn"><i class="fa-light fa-arrow-right-long"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 filter-item">
+          <div class="case-box style2 inner-style1">
+            <div class="case-img global-img">
+              <img src="/images/gallery-3.jpg" alt="gallery image" />
+              <a href="/images/gallery-3.jpg" class="icon-btn popup-image"><i
+                  class="fa-light fa-arrow-right-long"></i></a>
+            </div>
+            <div class="case-action">
+              <a href="#!" class="case-btn"><i class="fa-light fa-arrow-right-long"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="testi-area7 bg-smoke overflow-hidden space" id="testi-sec" data-bg-src="/images/bg/map2.png">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-6">
+          <div class="title-area mb-40">
+            <span class="sub-title text-anime-style-2">Testimonial</span>
+            <h2 class="sec-title text-anime-style-3">
+              What Client Say About us
             </h2>
           </div>
+          <div class="swiper th-slider testiSlide5" id="testiSlide7"
+            data-slider-options='{"effect":"slide","loop":false,"thumbs":{"swiper":".testi-grid2-thumb"}}'>
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="testi-grid2">
+                  <div class="box-content">
+                    <p class="box-text">
+                      “It is a long established fact that a reader will be
+                      distracted by the readable content of a page when
+                      looking at its layout. The point of using Lorem Ipsum is
+                      that it has a more-or-less normal distribution of
+                      letters”
+                    </p>
+                    <h6 class="box-title">Revathimaheshwar</h6>
+                    <span class="box-desig"> Desgination here</span>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="testi-grid2">
+                  <div class="box-content">
+                    <p class="box-text">
+                      “It is a long established fact that a reader will be
+                      distracted by the readable content of a page when
+                      looking at its layout. The point of using Lorem Ipsum is
+                      that it has a more-or-less normal distribution of
+                      letters”
+                    </p>
+                    <h6 class="box-title">Revathimaheshwar</h6>
+                    <span class="box-desig"> Desgination here</span>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="testi-grid2">
+                  <div class="box-content">
+                    <p class="box-text">
+                      “It is a long established fact that a reader will be
+                      distracted by the readable content of a page when
+                      looking at its layout. The point of using Lorem Ipsum is
+                      that it has a more-or-less normal distribution of
+                      letters”
+                    </p>
+                    <h6 class="box-title">Revathimaheshwar</h6>
+                    <span class="box-desig"> Desgination here</span>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="testi-grid2">
+                  <div class="box-content">
+                    <p class="box-text">
+                      “It is a long established fact that a reader will be
+                      distracted by the readable content of a page when
+                      looking at its layout. The point of using Lorem Ipsum is
+                      that it has a more-or-less normal distribution of
+                      letters”
+                    </p>
+                    <h6 class="box-title">Revathimaheshwar</h6>
+                    <span class="box-desig"> Desgination here</span>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="testi-grid2">
+                  <div class="box-content">
+                    <p class="box-text">
+                      “It is a long established fact that a reader will be
+                      distracted by the readable content of a page when
+                      looking at its layout. The point of using Lorem Ipsum is
+                      that it has a more-or-less normal distribution of
+                      letters”
+                    </p>
+                    <h6 class="box-title">Revathimaheshwar</h6>
+                    <span class="box-desig"> Desgination here</span>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="testi-grid2">
+                  <div class="box-content">
+                    <p class="box-text">
+                      “It is a long established fact that a reader will be
+                      distracted by the readable content of a page when
+                      looking at its layout. The point of using Lorem Ipsum is
+                      that it has a more-or-less normal distribution of
+                      letters”
+                    </p>
+                    <h6 class="box-title">Revathimaheshwar</h6>
+                    <span class="box-desig"> Desgination here</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper th-slider testi-grid2-thumb style2"
+            data-slider-options='{"effect":"slide","slidesPerView":"6","spaceBetween":7,"loop":false}'>
+            <div class="icon-box">
+              <button data-slider-prev="#testiSlide7" class="slider-arrow default">
+                <img src="/images/icon/right-arrow2.svg" alt="" />
+              </button>
+              <button data-slider-next="#testiSlide7" class="slider-arrow default">
+                <img src="/images/icon/left-arrow2.svg" alt="" />
+              </button>
+            </div>
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="box-img">
+                  <img src="/images/testimonial/testi_4_1.png" alt="Image" />
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="box-img">
+                  <img src="/images/testimonial/testi_4_2.png" alt="Image" />
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="box-img">
+                  <img src="/images/testimonial/testi_4_3.png" alt="Image" />
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="box-img">
+                  <img src="/images/testimonial/testi_4_4.png" alt="Image" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="row gy-4">
-          <div class="col-lg-4 filter-item">
-            <div class="case-box style2 inner-style1">
-              <div class="case-img global-img">
-                <img src="/images/gallery-1.jpg" alt="gallery image" />
-                <a href="/images/gallery-1.jpg" class="icon-btn popup-image"
-                  ><i class="fa-light fa-arrow-right-long"></i
-                ></a>
-              </div>
-              <div class="case-action">
-                <a href="#!" class="case-btn"
-                  ><i class="fa-light fa-arrow-right-long"></i
-                ></a>
-              </div>
+        <div class="col-xl-6">
+          <div class="testi-image-wrapp2">
+            <div class="testi-img">
+              <img src="/images/testimonial/testi-img1.jpg" alt="" />
             </div>
-          </div>
-          <div class="col-lg-4 filter-item">
-            <div class="case-box style2 inner-style1">
-              <div class="case-img global-img">
-                <img src="/images/gallery-2.jpg" alt="gallery image" />
-                <a href="/images/gallery-2.jpg" class="icon-btn popup-image"
-                  ><i class="fa-light fa-arrow-right-long"></i
-                ></a>
-              </div>
-              <div class="case-action">
-                <a href="#!" class="case-btn"
-                  ><i class="fa-light fa-arrow-right-long"></i
-                ></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 filter-item">
-            <div class="case-box style2 inner-style1">
-              <div class="case-img global-img">
-                <img src="/images/gallery-3.jpg" alt="gallery image" />
-                <a href="/images/gallery-3.jpg" class="icon-btn popup-image"
-                  ><i class="fa-light fa-arrow-right-long"></i
-                ></a>
-              </div>
-              <div class="case-action">
-                <a href="#!" class="case-btn"
-                  ><i class="fa-light fa-arrow-right-long"></i
-                ></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 filter-item">
-            <div class="case-box style2 inner-style1">
-              <div class="case-img global-img">
-                <img src="/images/gallery-1.jpg" alt="gallery image" />
-                <a href="/images/gallery-1.jpg" class="icon-btn popup-image"
-                  ><i class="fa-light fa-arrow-right-long"></i
-                ></a>
-              </div>
-              <div class="case-action">
-                <a href="#!" class="case-btn"
-                  ><i class="fa-light fa-arrow-right-long"></i
-                ></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 filter-item">
-            <div class="case-box style2 inner-style1">
-              <div class="case-img global-img">
-                <img src="/images/gallery-2.jpg" alt="gallery image" />
-                <a href="/images/gallery-2.jpg" class="icon-btn popup-image"
-                  ><i class="fa-light fa-arrow-right-long"></i
-                ></a>
-              </div>
-              <div class="case-action">
-                <a href="#!" class="case-btn"
-                  ><i class="fa-light fa-arrow-right-long"></i
-                ></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 filter-item">
-            <div class="case-box style2 inner-style1">
-              <div class="case-img global-img">
-                <img src="/images/gallery-3.jpg" alt="gallery image" />
-                <a href="/images/gallery-3.jpg" class="icon-btn popup-image"
-                  ><i class="fa-light fa-arrow-right-long"></i
-                ></a>
-              </div>
-              <div class="case-action">
-                <a href="#!" class="case-btn"
-                  ><i class="fa-light fa-arrow-right-long"></i
-                ></a>
-              </div>
+            <div class="testi-img2">
+              <img src="/images/testimonial/testi-img2.jpg" alt="" />
             </div>
           </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <section
-      class="testi-area7 bg-smoke overflow-hidden space"
-      id="testi-sec"
-      data-bg-src="/images/bg/map2.png"
-    >
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-xl-6">
-            <div class="title-area mb-40">
-              <span class="sub-title text-anime-style-2">Testimonial</span>
-              <h2 class="sec-title text-anime-style-3">
-                What Client Say About us
-              </h2>
-            </div>
-            <div
-              class="swiper th-slider testiSlide5"
-              id="testiSlide7"
-              data-slider-options='{"effect":"slide","loop":false,"thumbs":{"swiper":".testi-grid2-thumb"}}'
-            >
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <div class="testi-grid2">
-                    <div class="box-content">
-                      <p class="box-text">
-                        “It is a long established fact that a reader will be
-                        distracted by the readable content of a page when
-                        looking at its layout. The point of using Lorem Ipsum is
-                        that it has a more-or-less normal distribution of
-                        letters”
-                      </p>
-                      <h6 class="box-title">Revathimaheshwar</h6>
-                      <span class="box-desig"> Desgination here</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="testi-grid2">
-                    <div class="box-content">
-                      <p class="box-text">
-                        “It is a long established fact that a reader will be
-                        distracted by the readable content of a page when
-                        looking at its layout. The point of using Lorem Ipsum is
-                        that it has a more-or-less normal distribution of
-                        letters”
-                      </p>
-                      <h6 class="box-title">Revathimaheshwar</h6>
-                      <span class="box-desig"> Desgination here</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="testi-grid2">
-                    <div class="box-content">
-                      <p class="box-text">
-                        “It is a long established fact that a reader will be
-                        distracted by the readable content of a page when
-                        looking at its layout. The point of using Lorem Ipsum is
-                        that it has a more-or-less normal distribution of
-                        letters”
-                      </p>
-                      <h6 class="box-title">Revathimaheshwar</h6>
-                      <span class="box-desig"> Desgination here</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="testi-grid2">
-                    <div class="box-content">
-                      <p class="box-text">
-                        “It is a long established fact that a reader will be
-                        distracted by the readable content of a page when
-                        looking at its layout. The point of using Lorem Ipsum is
-                        that it has a more-or-less normal distribution of
-                        letters”
-                      </p>
-                      <h6 class="box-title">Revathimaheshwar</h6>
-                      <span class="box-desig"> Desgination here</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="testi-grid2">
-                    <div class="box-content">
-                      <p class="box-text">
-                        “It is a long established fact that a reader will be
-                        distracted by the readable content of a page when
-                        looking at its layout. The point of using Lorem Ipsum is
-                        that it has a more-or-less normal distribution of
-                        letters”
-                      </p>
-                      <h6 class="box-title">Revathimaheshwar</h6>
-                      <span class="box-desig"> Desgination here</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="testi-grid2">
-                    <div class="box-content">
-                      <p class="box-text">
-                        “It is a long established fact that a reader will be
-                        distracted by the readable content of a page when
-                        looking at its layout. The point of using Lorem Ipsum is
-                        that it has a more-or-less normal distribution of
-                        letters”
-                      </p>
-                      <h6 class="box-title">Revathimaheshwar</h6>
-                      <span class="box-desig"> Desgination here</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="swiper th-slider testi-grid2-thumb style2"
-              data-slider-options='{"effect":"slide","slidesPerView":"6","spaceBetween":7,"loop":false}'
-            >
-              <div class="icon-box">
-                <button
-                  data-slider-prev="#testiSlide7"
-                  class="slider-arrow default"
-                >
-                  <img src="/images/icon/right-arrow2.svg" alt="" />
-                </button>
-                <button
-                  data-slider-next="#testiSlide7"
-                  class="slider-arrow default"
-                >
-                  <img src="/images/icon/left-arrow2.svg" alt="" />
-                </button>
-              </div>
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <div class="box-img">
-                    <img
-                      src="/images/testimonial/testi_4_1.png"
-                      alt="Image"
-                    />
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="box-img">
-                    <img
-                      src="/images/testimonial/testi_4_2.png"
-                      alt="Image"
-                    />
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="box-img">
-                    <img
-                      src="/images/testimonial/testi_4_3.png"
-                      alt="Image"
-                    />
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="box-img">
-                    <img
-                      src="/images/testimonial/testi_4_4.png"
-                      alt="Image"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+  <div class="about-area position-relative overflow-hidden space" id="about-sec">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-6 col-lg-6">
+          <div class="title-area mb-20">
+            <span class="sub-title style1 text-anime-style-2">Who We Are</span>
+            <h2 class="sec-title mb-20 text-anime-style-3">
+              Because Security Deserves Experts
+            </h2>
+            <p class="sec-text mb-60 wow fadeInUp" data-wow-delay=".2s">
+              A software development company specializes in designing,
+              developing, and deploying software applications tailored to meet
+              specific client needs. These companies combine technical
+              expertise with innovative strategies to deliver cutting-edge
+              solutions for businesses across various industries. From mobile
+              apps to enterprise software, their services ensure that clients
+              can achieve operational efficiency, scalability.
+            </p>
           </div>
-          <div class="col-xl-6">
-            <div class="testi-image-wrapp2">
-              <div class="testi-img">
-                <img src="/images/testimonial/testi-img1.jpg" alt="" />
+          <div class="img-box8">
+            <div class="row">
+              <div class="col-xl-6 col-md-6 col-sm-6">
+                <div class="img1 reveal">
+                  <img src="/images/why-image-2.jpg" alt="About" />
+                </div>
               </div>
-              <div class="testi-img2">
-                <img src="/images/testimonial/testi-img2.jpg" alt="" />
+              <div class="col-xl-6 col-md-6 col-sm-6">
+                <div class="img2 reveal">
+                  <img src="/images/why-image-3.jpg" alt="About" />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <div
-      class="about-area position-relative overflow-hidden space"
-      id="about-sec"
-    >
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-6 col-lg-6">
-            <div class="title-area mb-20">
-              <span class="sub-title style1 text-anime-style-2"
-                >Who We Are</span
-              >
-              <h2 class="sec-title mb-20 text-anime-style-3">
-                Because Security Deserves Experts
-              </h2>
-              <p class="sec-text mb-60 wow fadeInUp" data-wow-delay=".2s">
-                A software development company specializes in designing,
-                developing, and deploying software applications tailored to meet
-                specific client needs. These companies combine technical
-                expertise with innovative strategies to deliver cutting-edge
-                solutions for businesses across various industries. From mobile
-                apps to enterprise software, their services ensure that clients
-                can achieve operational efficiency, scalability.
-              </p>
+        <div class="col-xl-6 col-lg-6">
+          <div class="img-box8 ms-xl-5">
+            <div class="img3 reveal">
+              <img src="/images/why-image-1.jpg" alt="About" />
             </div>
-            <div class="img-box8">
-              <div class="row">
-                <div class="col-xl-6 col-md-6 col-sm-6">
-                  <div class="img1 reveal">
-                    <img src="/images/why-image-2.jpg" alt="About" />
-                  </div>
+            <div class="about-item-wrap">
+              <div class="about-item wow fadeInUp" data-wow-delay=".3s">
+                <div class="about-item_img">
+                  <img src="/images/icon/shield.svg" alt="" />
                 </div>
-                <div class="col-xl-6 col-md-6 col-sm-6">
-                  <div class="img2 reveal">
-                    <img src="/images/why-image-3.jpg" alt="About" />
-                  </div>
+                <div class="about-item_centent">
+                  <h5 class="box-title">Technical Expertise</h5>
+                  <p class="about-item_text">
+                    Access to a team of skilled developers, designers, and
+                    project managers.
+                  </p>
+                </div>
+              </div>
+              <div class="about-item wow fadeInUp" data-wow-delay=".4s">
+                <div class="about-item_img">
+                  <img src="/images/icon/shield.svg" alt="" />
+                </div>
+                <div class="about-item_centent">
+                  <h5 class="box-title">Custom Solutions</h5>
+                  <p class="about-item_text">
+                    Development tailored to specific business needs, ensuring
+                    better alignment with goals.
+                  </p>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-xl-6 col-lg-6">
-            <div class="img-box8 ms-xl-5">
-              <div class="img3 reveal">
-                <img src="/images/why-image-1.jpg" alt="About" />
-              </div>
-              <div class="about-item-wrap">
-                <div class="about-item wow fadeInUp" data-wow-delay=".3s">
-                  <div class="about-item_img">
-                    <img src="/images/icon/shield.svg" alt="" />
-                  </div>
-                  <div class="about-item_centent">
-                    <h5 class="box-title">Technical Expertise</h5>
-                    <p class="about-item_text">
-                      Access to a team of skilled developers, designers, and
-                      project managers.
-                    </p>
-                  </div>
-                </div>
-                <div class="about-item wow fadeInUp" data-wow-delay=".4s">
-                  <div class="about-item_img">
-                    <img src="/images/icon/shield.svg" alt="" />
-                  </div>
-                  <div class="about-item_centent">
-                    <h5 class="box-title">Custom Solutions</h5>
-                    <p class="about-item_text">
-                      Development tailored to specific business needs, ensuring
-                      better alignment with goals.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="mt-35 wow fadeInUp" data-wow-delay=".5s">
-                <a href="about" class="th-btn black-btn th-radius th-icon"
-                  >Learn More <i class="fa-light fa-arrow-right-long"></i
-                ></a>
-              </div>
+            <div class="mt-35 wow fadeInUp" data-wow-delay=".5s">
+              <a href="about" class="th-btn black-btn th-radius th-icon">Learn More <i
+                  class="fa-light fa-arrow-right-long"></i></a>
             </div>
           </div>
         </div>
       </div>
     </div>
-  
+  </div>
 
-    <%- include('partials/footer') %>
+
+  <%- include('partials/footer') %>

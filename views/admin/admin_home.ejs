@@ -1,0 +1,679 @@
+<%- include('../layouts/admin_layouts_header', { title: 'Admin | Home Page', currentPage: 'dashboard' }) %>
+<%- include('../layouts/admin_layouts_sidebar', { currentPage: 'dashboard' }) %>
+
+<div class="container-fluid px-4 py-4">
+    <!-- Premium Header -->
+    <div class="premium-header mb-5">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="h3 fw-bold text-gradient mb-2">Home Page Management</h1>
+                <p class="text-muted mb-0">Craft an exceptional first impression with stunning visuals</p>
+            </div>
+            <div class="premium-icon">
+                <i class="fas fa-gem"></i>
+            </div>
+        </div>
+    </div>
+
+    <% if (successMessage) { %>
+        <div class="alert alert-premium alert-dismissible fade show mb-4" role="alert">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-check-circle me-3"></i>
+                <div class="fw-medium"><%= successMessage %></div>
+                <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    <% } %>
+
+    <form action="/admin/home" method="POST" enctype="multipart/form-data">
+        <!-- Premium Banner Section -->
+        <div class="premium-card mb-5">
+            <div class="premium-card-header">
+                <div class="d-flex align-items-center">
+                    <div class="premium-icon-small me-3">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-1 fw-bold">Hero Banner Gallery</h4>
+                        <p class="mb-0 text-muted">Showcase your best visuals in high definition</p>
+                    </div>
+                </div>
+            </div>
+            <div class="premium-card-body">
+                <div class="row g-4">
+                    <% ['hero1','hero2','hero3'].forEach((hero, i) => { %>
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="image-card">
+                                <div class="image-card-header">
+                                    <span class="badge-premium">Slide <%= i + 1 %></span>
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </div>
+                                <div class="image-card-body">
+                                    <% const imgUrl = data[hero]; %>
+                                    
+                                    <div class="image-preview-wrapper">
+                                        <% if (imgUrl && imgUrl.startsWith('http')) { %>
+                                            <div class="premium-image-container">
+                                                <img src="<%= imgUrl %>" 
+                                                     alt="Banner <%= i + 1 %>" 
+                                                     class="premium-image">
+                                                <div class="image-overlay">
+                                                    <div class="overlay-content">
+                                                        <button type="button" class="btn-premium-icon" onclick="window.open('<%= imgUrl %>', '_blank')">
+                                                            <i class="fas fa-expand"></i>
+                                                        </button>
+                                                        <span class="status-badge active">Active</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <% } else { %>
+                                            <div class="empty-state">
+                                                <div class="empty-icon">
+                                                    <i class="fas fa-cloud-upload-alt"></i>
+                                                </div>
+                                                <p class="empty-text">No Image</p>
+                                                <small class="empty-subtext">Upload to preview</small>
+                                            </div>
+                                        <% } %>
+                                    </div>
+
+                                    <div class="upload-section">
+                                        <label class="upload-label">
+                                            <i class="fas fa-camera me-2"></i>
+                                            Update Banner
+                                        </label>
+                                        <div class="file-input-wrapper">
+                                            <input type="file" 
+                                                   name="<%= hero %>" 
+                                                   class="premium-file-input" 
+                                                   accept="image/*"
+                                                   id="file-<%= hero %>">
+                                            <label for="file-<%= hero %>" class="file-input-label">
+                                                <i class="fas fa-upload me-2"></i>
+                                                Choose File
+                                            </label>
+                                        </div>
+                                        <div class="file-help-text">
+                                            <i class="fas fa-info-circle me-1"></i>
+                                            <% if (imgUrl && imgUrl.startsWith('http')) { %>
+                                                Leave blank to keep current
+                                            <% } else { %>
+                                                JPG, PNG, WebP • Max 5MB
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+
+        <!-- Premium Content Section -->
+        <div class="premium-card">
+            <div class="premium-card-header">
+                <div class="d-flex align-items-center">
+                    <div class="premium-icon-small me-3">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-1 fw-bold">Content Excellence</h4>
+                        <p class="mb-0 text-muted">Craft compelling content that converts visitors</p>
+                    </div>
+                </div>
+            </div>
+            <div class="premium-card-body">
+                <!-- Title Section -->
+                <div class="content-group">
+                    <div class="content-label">
+                        <i class="fas fa-heading"></i>
+                        <div>
+                            <h6 class="mb-1">Section Title</h6>
+                            <small>Your main value proposition</small>
+                        </div>
+                    </div>
+                    <div class="content-input">
+                        <div class="input-group-premium">
+                            <input type="text" 
+                                   name="offer_title" 
+                                   value="<%= data.offer_title || '' %>"
+                                   class="premium-input" 
+                                   placeholder="What makes you unique?"
+                                   required>
+                            <i class="input-icon fas fa-tag"></i>
+                        </div>
+                        <div class="input-helper">
+                            <i class="fas fa-lightbulb me-1"></i>
+                            Keep it impactful and concise
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description Section -->
+                <div class="content-group">
+                    <div class="content-label">
+                        <i class="fas fa-align-left"></i>
+                        <div>
+                            <h6 class="mb-1">Detailed Description</h6>
+                            <small>Tell your story with clarity</small>
+                        </div>
+                    </div>
+                    <div class="content-input">
+                        <div class="textarea-group-premium">
+                            <textarea id="offer_description" 
+                                      name="offer_description"
+                                      class="premium-textarea"
+                                      rows="6"
+                                      placeholder="Describe your offerings with passion and precision..."><%= data.offer_description || '' %></textarea>
+                            <div class="textarea-stats">
+                                <span class="stat-item">
+                                    <i class="fas fa-font"></i>
+                                    <span id="charCount">0</span> chars
+                                </span>
+                                <span class="stat-item">
+                                    <i class="fas fa-file-word"></i>
+                                    <span id="wordCount">0</span> words
+                                </span>
+                                <span class="stat-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span id="readTime">0</span> min read
+                                </span>
+                            </div>
+                        </div>
+                        <div class="formatting-tips">
+                            <strong>Pro Tips:</strong>
+                            <span class="tip">• Use bullet points</span>
+                            <span class="tip">• Highlight benefits</span>
+                            <span class="tip">• Keep it scannable</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Premium Submit Section -->
+        <div class="premium-submit-section mt-5">
+            <div class="submit-card">
+                <div class="submit-content">
+                    <i class="fas fa-rocket submit-icon"></i>
+                    <div>
+                        <h5 class="mb-1">Ready to Shine?</h5>
+                        <p class="mb-0">Publish your changes and impress your audience</p>
+                    </div>
+                </div>
+                <button type="submit" class="btn-premium">
+                    <i class="fas fa-bolt me-2"></i>
+                    Launch Changes
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Add Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+    /* Premium Color Scheme */
+    :root {
+        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        --premium-bg: #f8fafc;
+        --premium-border: #e2e8f0;
+        --premium-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+
+    /* Premium Header */
+    .premium-header {
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .premium-icon {
+        width: 60px;
+        height: 60px;
+        background: var(--primary-gradient);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: var(--premium-shadow);
+    }
+
+    /* Premium Cards */
+    .premium-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: var(--premium-shadow);
+        border: 1px solid var(--premium-border);
+        overflow: hidden;
+    }
+
+    .premium-card-header {
+        background: var(--premium-bg);
+        padding: 2rem;
+        border-bottom: 1px solid var(--premium-border);
+    }
+
+    .premium-card-body {
+        padding: 2rem;
+    }
+
+    .premium-icon-small {
+        width: 50px;
+        height: 50px;
+        background: var(--primary-gradient);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+
+    /* Image Cards */
+    .image-card {
+        background: white;
+        border-radius: 15px;
+        border: 1px solid var(--premium-border);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .image-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--premium-shadow);
+    }
+
+    .image-card-header {
+        padding: 1.5rem;
+        background: var(--premium-bg);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--premium-border);
+    }
+
+    .badge-premium {
+        background: var(--success-gradient);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .image-card-body {
+        padding: 1.5rem;
+    }
+
+    /* Premium Image Preview */
+    .premium-image-container {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 1rem;
+    }
+
+    .premium-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .premium-image-container:hover .image-overlay {
+        opacity: 1;
+    }
+
+    .premium-image-container:hover .premium-image {
+        transform: scale(1.05);
+    }
+
+    .overlay-content {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .btn-premium-icon {
+        width: 40px;
+        height: 40px;
+        background: white;
+        border: none;
+        border-radius: 50%;
+        color: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .btn-premium-icon:hover {
+        transform: scale(1.1);
+    }
+
+    .status-badge {
+        background: var(--success-gradient);
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 600;
+    }
+
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 3rem 2rem;
+        background: var(--premium-bg);
+        border-radius: 12px;
+        border: 2px dashed var(--premium-border);
+    }
+
+    .empty-icon {
+        font-size: 3rem;
+        color: #cbd5e0;
+        margin-bottom: 1rem;
+    }
+
+    .empty-text {
+        font-weight: 600;
+        color: #4a5568;
+        margin-bottom: 0.5rem;
+    }
+
+    .empty-subtext {
+        color: #718096;
+        font-size: 0.9rem;
+    }
+
+    /* Upload Section */
+    .upload-section {
+        margin-top: 1.5rem;
+    }
+
+    .upload-label {
+        display: block;
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 0.8rem;
+    }
+
+    .file-input-wrapper {
+        position: relative;
+        margin-bottom: 0.5rem;
+    }
+
+    .premium-file-input {
+        display: none;
+    }
+
+    .file-input-label {
+        display: block;
+        padding: 1rem 1.5rem;
+        background: var(--premium-bg);
+        border: 2px dashed #cbd5e0;
+        border-radius: 10px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+    .file-input-label:hover {
+        border-color: #667eea;
+        background: #f7fafc;
+    }
+
+    .file-help-text {
+        font-size: 0.8rem;
+        color: #718096;
+    }
+
+    /* Content Groups */
+    .content-group {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        gap: 2rem;
+        align-items: start;
+        margin-bottom: 2.5rem;
+    }
+
+    .content-label {
+        display: flex;
+        align-items: start;
+        gap: 1rem;
+    }
+
+    .content-label i {
+        font-size: 1.5rem;
+        color: #667eea;
+        margin-top: 0.2rem;
+    }
+
+    .content-input {
+        flex: 1;
+    }
+
+    /* Premium Inputs */
+    .input-group-premium {
+        position: relative;
+        margin-bottom: 0.8rem;
+    }
+
+    .premium-input {
+        width: 100%;
+        padding: 1.2rem 1.5rem 1.2rem 3rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+    .premium-input:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .input-icon {
+        position: absolute;
+        left: 1.2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #a0aec0;
+    }
+
+    .premium-input:focus + .input-icon {
+        color: #667eea;
+    }
+
+    /* Premium Textarea */
+    .textarea-group-premium {
+        position: relative;
+        margin-bottom: 1rem;
+    }
+
+    .premium-textarea {
+        width: 100%;
+        padding: 1.5rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        font-size: 1rem;
+        line-height: 1.6;
+        resize: vertical;
+        min-height: 150px;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+    .premium-textarea:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .textarea-stats {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.8rem;
+        color: #718096;
+        font-weight: 500;
+    }
+
+    /* Helper Text */
+    .input-helper, .formatting-tips {
+        font-size: 0.85rem;
+        color: #718096;
+    }
+
+    .formatting-tips {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .tip {
+        background: #edf2f7;
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+    }
+
+    /* Premium Submit Section */
+    .premium-submit-section {
+        background: var(--primary-gradient);
+        border-radius: 20px;
+        padding: 2rem;
+    }
+
+    .submit-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+    }
+
+    .submit-content {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .submit-icon {
+        font-size: 2.5rem;
+        opacity: 0.9;
+    }
+
+    .btn-premium {
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255,255,255,0.3);
+        color: white;
+        padding: 1rem 2.5rem;
+        border-radius: 15px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-premium:hover {
+        background: rgba(255,255,255,0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    /* Premium Alert */
+    .alert-premium {
+        background: var(--success-gradient);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        padding: 1rem 1.5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .content-group {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        .submit-card {
+            flex-direction: column;
+            gap: 1.5rem;
+            text-align: center;
+        }
+    }
+</style>
+
+<script>
+    // Enhanced character counter with read time
+    document.addEventListener('DOMContentLoaded', function() {
+        const textarea = document.getElementById('offer_description');
+        const charCount = document.getElementById('charCount');
+        const wordCount = document.getElementById('wordCount');
+        const readTime = document.getElementById('readTime');
+        
+        function updateStats() {
+            const text = textarea.value;
+            const characters = text.length;
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            const readingTime = Math.ceil(words / 200);
+            
+            charCount.textContent = characters.toLocaleString();
+            wordCount.textContent = words.toLocaleString();
+            readTime.textContent = readingTime;
+        }
+        
+        textarea.addEventListener('input', updateStats);
+        updateStats();
+        
+        // Auto-resize textarea
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+        
+        // File input preview
+        document.querySelectorAll('.premium-file-input').forEach(input => {
+            input.addEventListener('change', function(e) {
+                const label = this.nextElementSibling;
+                if (this.files.length > 0) {
+                    label.innerHTML = `<i class="fas fa-check me-2"></i>${this.files[0].name}`;
+                    label.style.borderColor = '#48bb78';
+                    label.style.background = '#f0fff4';
+                }
+            });
+        });
+    });
+</script>
+
+<%- include('../layouts/admin_layouts_footer') %>

@@ -1,0 +1,91 @@
+<div id="services-container">
+  <div class="row gy-30 justify-content-center">
+    <% services.forEach(service => { %>
+      <div class="col-xl-3 col-md-6">
+        <div class="service-box service-style-1">
+          <div class="service-img">
+            <a href="/service-details/<%= service.slug %>#<%= service.slug %>">
+              <img src="<%= service.image_url %>" alt="<%= service.title %>" />
+            </a>
+          </div>
+          <div class="service-content">
+            <h3 class="box-title">
+              <a href="/service-details/<%= service.slug %>#<%= service.slug %>">
+                <%= service.title %>
+              </a>
+            </h3>
+            <p class="service-box_text">
+              <%= service.description.substring(0, 100) %>...
+            </p>
+            <a class="th-btn style4" href="/service-details/<%= service.slug %>#<%= service.slug %>">
+              Read More <i class="fa-light fa-arrow-right-long"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination mt-4 text-center">
+    <% for (let i = 1; i <= totalPages; i++) { %>
+      <button class="th-btn style4 page-btn <%= currentPage == i ? 'active' : '' %>" data-page="<%= i %>">
+        <%= i %>
+      </button>
+    <% } %>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("services-container");
+
+    // Pagination click handler
+    container.addEventListener("click", async (e) => {
+      if (e.target.classList.contains("page-btn")) {
+        const page = e.target.dataset.page;
+        try {
+          const res = await fetch(`/services-pagination?page=${page}`);
+          const html = await res.text();
+          container.innerHTML = html;
+
+          // Scroll to top of services container after pagination
+          const headerHeight = document.querySelector('header')?.offsetHeight || 0;
+          const topMargin = 50; // Extra top margin
+          const scrollPosition = container.getBoundingClientRect().top + window.pageYOffset - headerHeight - topMargin;
+          window.scrollTo({ top: scrollPosition, behavior: "smooth" });
+        } catch (err) {
+          console.error("Pagination error:", err);
+        }
+      }
+    });
+  });
+</script>
+
+<style>
+  /* Pagination styling like "Read More" buttons */
+  .pagination {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .pagination .th-btn {
+    padding: 8px 18px;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+
+  .pagination .th-btn.active {
+    background-color: #ff6600;
+    color: #fff;
+  }
+
+  .pagination .th-btn:hover {
+    background-color: #ff4500;
+    color: #fff;
+  }
+</style>

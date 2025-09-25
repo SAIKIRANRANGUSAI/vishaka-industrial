@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Vishaka Industrial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1e3a8a;
+            --primary-dark: #172554;
+            --secondary: #dc2626;
+            --success: #059669;
+            --warning: #d97706;
+            --danger: #dc2626;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        body,
+        html {
+            height: 100%;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Main Container */
+        .login-container {
+            width: 1000px;
+            max-width: 95%;
+            height: 600px;
+            display: flex;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            background: white;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Left Branding Section */
+        .brand-section {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 15s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-container img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .brand-text {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .brand-text h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-text p {
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.9;
+            max-width: 300px;
+        }
+
+        .features-list {
+            position: relative;
+            z-index: 2;
+            margin-top: 40px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .feature-item i {
+            margin-right: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Right Login Form */
+        .login-form-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background: white;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-header h2 {
+            font-size: 28px;
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .form-header p {
+            color: var(--gray);
+            font-size: 16px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            z-index: 2;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 15px 14px 45px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            font-size: 16px;
+            outline: none;
+            transition: var(--transition);
+            background: #f8fafc;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.15);
+            background: white;
+        }
+
+        .form-label {
+            position: absolute;
+            top: 50%;
+            left: 45px;
+            transform: translateY(-50%);
+            color: var(--gray);
+            pointer-events: none;
+            transition: var(--transition);
+            background: transparent;
+            padding: 0 5px;
+        }
+
+        .form-input:focus+.form-label,
+        .form-input:not(:placeholder-shown)+.form-label {
+            top: 0;
+            left: 40px;
+            font-size: 12px;
+            color: var(--primary);
+            background: white;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember-me input {
+            margin-right: 8px;
+            accent-color: var(--primary);
+        }
+
+        .forgot-password {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .forgot-password:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: var(--primary);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .login-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 58, 138, 0.2);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        /* Footer */
+        .login-footer {
+            text-align: center;
+            margin-top: 30px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media(max-width: 992px) {
+            .login-container {
+                height: auto;
+                flex-direction: column;
+            }
+
+            .brand-section,
+            .login-form-section {
+                flex: none;
+                width: 100%;
+                padding: 30px;
+            }
+
+            .brand-section {
+                border-radius: var(--border-radius) var(--border-radius) 0 0;
+            }
+
+            .login-form-section {
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
+            }
+        }
+
+        @media(max-width: 480px) {
+
+            .brand-section,
+            .login-form-section {
+                padding: 20px;
+            }
+
+            .form-header h2 {
+                font-size: 24px;
+            }
+
+            .remember-forgot {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .forgot-password {
+                margin-left: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <!-- Left Branding Section -->
+        <div class="brand-section">
+            <div class="logo-container">
+                <div
+                    style="width: 120px; height: 120px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding: 15px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);">
+                    <i class="fas fa-industry" style="font-size: 60px; color: #1e3a8a;"></i>
+                </div>
+            </div>
+            <div class="brand-text">
+                <h1>Vishaka Industrial</h1>
+                <p>Secure access to your industrial management dashboard</p>
+            </div>
+            <div class="features-list">
+                <div class="feature-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Enterprise-grade security</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-cogs"></i>
+                    <span>Industrial process management</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Production analytics</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-truck-loading"></i>
+                    <span>Supply chain tracking</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Login Form -->
+        <div class="login-form-section">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Admin Login</h2>
+                    <p>Enter your credentials to access the dashboard</p>
+                </div>
+
+                <form action="/admin/login" method="POST" id="loginForm">
+                    <div class="input-group">
+                        <i class="input-icon fas fa-user"></i>
+                        <input type="text" name="username" class="form-input" placeholder=" " required>
+                        <label class="form-label">Username</label>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="input-icon fas fa-lock"></i>
+                        <input type="password" name="password" id="password" class="form-input" placeholder=" "
+                            required>
+                        <label class="form-label">Password</label>
+                        <i class="password-toggle fas fa-eye" id="togglePassword"></i>
+                    </div>
+
+                    <!-- <div class="remember-forgot">
+                        <label class="remember-me">
+                            <input type="checkbox" name="remember">
+                            Remember me
+                        </label>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div> -->
+
+                    <button type="submit" class="login-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Sign In
+                    </button>
+                    <% if (typeof error !=='undefined' ) { %>
+                        <div style="color: red; margin-bottom: 10px; text-align:center;">
+                            <%= error %>
+                        </div>
+                        <% } %>
+
+                            <div id="errorMessage" class="error-message">
+                                <i class="fas fa-exclamation-circle"></i>
+                                Invalid username or password
+                            </div>
+                </form>
+
+                <div class="login-footer">
+                    <p>&copy; 2025 Vishaka Industrial. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ✅ Toggle password visibility
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function () {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+
+            // Toggle eye icon
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // ✅ Frontend validation only
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            const username = document.querySelector('input[name="username"]').value.trim();
+            const password = passwordInput.value.trim();
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Reset error message
+            errorMessage.style.display = 'none';
+
+            if (!username || !password) {
+                e.preventDefault();
+                errorMessage.textContent = '⚠️ Please fill in both Username and Password';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // Optional: add basic length check
+            if (username.length < 3) {
+                e.preventDefault();
+                errorMessage.textContent = '⚠️ Username must be at least 3 characters long';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            if (password.length < 4) {
+                e.preventDefault();
+                errorMessage.textContent = '⚠️ Password must be at least 4 characters long';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // ✅ Disable button + show loading on submit
+            const btn = this.querySelector('.login-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing In...';
+        });
+
+        // ✅ Input focus/blur animation
+        const inputs = document.querySelectorAll('.form-input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function () {
+                this.parentElement.classList.add('focused');
+            });
+
+            input.addEventListener('blur', function () {
+                if (!this.value) {
+                    this.parentElement.classList.remove('focused');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

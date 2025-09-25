@@ -1,100 +1,80 @@
-     <%- include('partials/header') %>
+<%- include('partials/header') %>
 
 <div class="breadcumb-wrapper" data-bg-src="/images/breadcrumb-img-1.jpg">
-      <div class="container">
-        <div class="breadcumb-content">
-          <h1 class="breadcumb-title">Services</h1>
-          <ul class="breadcumb-menu">
-            <li><a href="index">Home</a></li>
-            <li>Services</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-     
-
-    <section class="space py-5">
   <div class="container">
-
-    <!-- Security Guards -->
-    <div class="row mb-5 align-items-center">
-      <div class="col-md-8 order-2 order-md-1">
-        <h6 class="fw-bold">Security Guards</h6>
-        <p>
-         It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-
-
-        </p>
-      </div>
-      <div class="col-md-4 order-1 order-md-2">
-        <img src="/images/service-1.jpg" alt="Security Guards" class="img-fluid rounded shadow">
-      </div>
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title">Services</h1>
+      <ul class="breadcumb-menu">
+        <li><a href="/">Home</a></li>
+        <li>Services</li>
+      </ul>
     </div>
+  </div>
+</div>
 
-    <!-- Housekeeping and Conservancy -->
-    <div class="row mb-5 align-items-center">
-      <div class="col-md-4 order-1 order-md-1">
-        <img src="/images/service-2.jpg" alt="Housekeeping and Conservancy" class="img-fluid rounded shadow">
+<section class="space py-5">
+  <div class="container">
+    <% services.forEach((service, index) => { %>
+      <div id="<%= service.slug %>" class="row mb-5 align-items-center service-section">
+        
+        <% if (index % 2 === 0) { %>
+          <div class="col-md-8 order-2 order-md-1">
+            <h6 class="fw-bold"><%= service.title %></h6>
+            <p><%= service.description %></p>
+          </div>
+          <div class="col-md-4 order-1 order-md-2">
+            <img src="<%= service.image_url %>" alt="<%= service.title %>" class="img-fluid rounded shadow">
+          </div>
+        <% } else { %>
+          <div class="col-md-4 order-1 order-md-1">
+            <img src="<%= service.image_url %>" alt="<%= service.title %>" class="img-fluid rounded shadow">
+          </div>
+          <div class="col-md-8 order-2 order-md-2">
+            <h6 class="fw-bold"><%= service.title %></h6>
+            <p><%= service.description %></p>
+          </div>
+        <% } %>
+
       </div>
-      <div class="col-md-8 order-2 order-md-2">
-        <h6 class="fw-bold">Housekeeping and Conservancy</h6>
-        <p>
-         It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-
-
-        </p>
-      </div>
-    </div>
-
-    <!-- Data Entry Operator -->
-    <div class="row mb-5 align-items-center">
-      <div class="col-md-8 order-2 order-md-1">
-        <h6 class="fw-bold">Data Entry Operator</h6>
-        <p>
-         It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-
-
-        </p>
-      </div>
-      <div class="col-md-4 order-1 order-md-2">
-        <img src="/images/service-3.jpg" alt="Data Entry Operator" class="img-fluid rounded shadow">
-      </div>
-    </div>
-
-    <!-- Manpower Services -->
-    <div class="row mb-5 align-items-center">
-      <div class="col-md-4 order-1 order-md-1">
-        <img src="/images/service-4.jpg" alt="Manpower Services" class="img-fluid rounded shadow">
-      </div>
-      <div class="col-md-8 order-2 order-md-2">
-        <h6 class="fw-bold">All Types of Manpower Services</h6>
-        <p>
-         It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-
-
-        </p>
-      </div>
-    </div>
-
-      <!-- Data Entry Operator -->
-    <div class="row mb-5 align-items-center">
-      <div class="col-md-8 order-2 order-md-1">
-        <h6 class="fw-bold"> IT and consulting services.</h6>
-        <p>
-         It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-
-
-        </p>
-      </div>
-      <div class="col-md-4 order-1 order-md-2">
-        <img src="/images/service-5.jpg" alt="Data Entry Operator" class="img-fluid rounded shadow">
-      </div>
-    </div>
-
-
+    <% }) %>
   </div>
 </section>
 
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const hash = window.location.hash;
+
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) {
+        // Get fixed header height
+        const headerHeight = document.querySelector('header')?.offsetHeight || 0;
+
+        // Extra top margin (you can adjust, e.g., 50px)
+        const topMargin = 50;
+
+        // Scroll with offset
+        const elementPosition = el.getBoundingClientRect().top + window.pageYOffset - headerHeight - topMargin;
+        window.scrollTo({ top: elementPosition, behavior: "smooth" });
+
+        // Highlight section temporarily
+        el.classList.add("highlight-section");
+        setTimeout(() => el.classList.remove("highlight-section"), 3000);
+      }
+    }
+  });
+</script>
 
 
-      <%- include('partials/footer') %>
+<style>
+  /* Highlight effect for smooth attention */
+  .highlight-section {
+    border: 2px solid #ff6600;
+    padding: 1rem;
+    border-radius: 6px;
+    transition: all 0.5s ease;
+    background-color: #fff8e1;
+  }
+</style>
+
+<%- include('partials/footer') %>

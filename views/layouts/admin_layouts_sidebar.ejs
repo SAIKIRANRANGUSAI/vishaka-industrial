@@ -1,8 +1,8 @@
 <!-- Sidebar -->
 <div class="sidebar">
     <div class="sidebar-header">
-        <img src="/images/harvest-logo.png" alt="Logo" class="sidebar-logo">
-        <h2>Harvest Tender Roots</h2>
+        <img src="/images/logo.png" alt="Logo" class="sidebar-logo">
+        <h2>Vishaka_industrial</h2>
         <button class="sidebar-toggle" id="sidebarToggle">
             <!-- <i class="fas fa-bars"></i> -->
         </button>
@@ -29,10 +29,10 @@
             <i class="fas fa-info-circle"></i>
             <span>About Us</span>
         </a>
-        <a href="/admin/principal-message"
-            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'principal-message') ? 'active' : '' %>">
+        <a href="/admin/services"
+            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'services') ? 'active' : '' %>">
             <i class="fas fa-info-circle"></i>
-            <span>principal-message</span>
+            <span>Services</span>
         </a>
         <a href="/admin/admission"
             class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'admission') ? 'active' : '' %>">
@@ -102,7 +102,7 @@
     /* Sidebar */
     .sidebar {
         width: var(--sidebar-width);
-        background: linear-gradient(to bottom, var(--primary), var(--primary-dark));
+        background: linear-gradient(to bottom, #228b22, #b22222);
         color: white;
         height: 100vh;
         display: flex;
