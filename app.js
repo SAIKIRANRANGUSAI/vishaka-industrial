@@ -7,7 +7,10 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const bcrypt = require('bcrypt');
-
+const { exec } = require('child_process');
+// const path = require('path');
+const fs = require('fs');
+const mysqldump = require('mysqldump');
 
 
 // Routes
@@ -160,6 +163,51 @@ app.use(async (req, res, next) => {
     next();
   }
 });
+
+
+app.get('/admin/settings/download-db', async (req, res) => {
+  try {
+    const backupsDir = path.join(__dirname, 'backups');
+
+    // Ensure the backups folder exists
+    if (!fs.existsSync(backupsDir)) {
+      fs.mkdirSync(backupsDir, { recursive: true });
+    }
+
+    const fileName = `backup_${Date.now()}.sql`;
+    const filePath = path.join(backupsDir, fileName);
+
+    // Dump database
+    await mysqldump({
+      connection: {
+        host: process.env.DB_HOST || '46.250.225.169',
+        user: process.env.DB_USER || 'demo_colormo_usr',
+        password: process.env.DB_PASSWORD || 'QRdKdVpp3pnNhXBt',
+        database: process.env.DB_NAME || 'vishaka_industrial',
+      },
+      dumpToFile: filePath,
+    });
+
+    // Ensure file exists before sending
+    fs.access(filePath, fs.constants.F_OK, (err) => {
+      if (err) {
+        console.error('Backup file not found:', err);
+        return res.status(500).send('Backup failed.');
+      }
+      res.download(filePath, fileName, (err) => {
+        if (err) {
+          console.error('Error sending file:', err);
+          return res.status(500).send('Download failed.');
+        }
+      });
+    });
+
+  } catch (err) {
+    console.error('Database export failed:', err);
+    res.status(500).send('Database export failed.');
+  }
+});
+
 
 // -------------------- ROUTES -------------------- //
 app.use("/", frontendRoutes);       // Public pages
