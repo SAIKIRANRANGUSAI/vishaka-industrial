@@ -5,90 +5,57 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
 
     <meta name="robots" content="INDEX,FOLLOW" />
-    <meta
-      name="viewport"
-      content="width=device-width,initial-scale=1,shrink-to-fit=no"
-    />
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
+
     <!-- Primary Meta Tags -->
-    <title>
-      Visakha Industrial Security Force | Trusted Industrial Security Services
-    </title>
-    <meta
-      name="title"
-      content="Visakha Industrial Security Force | Trusted Industrial Security Services"
-    />
-    <meta
-      name="description"
-      content="Visakha Industrial Security Force provides reliable and professional industrial security solutions for factories, warehouses, and corporate sectors. Trusted protection, 24/7 vigilance."
-    />
-    <meta
-      name="keywords"
-      content="Visakha Industrial Security Force, industrial security services, factory security, warehouse protection, corporate security solutions, private security force, professional security guards, industrial safety, 24/7 security services"
-    />
-    <meta name="author" content="Visakha Industrial Security Force" />
+    <title><%= seo.title %></title>
+    <meta name="title" content="<%= seo.title %>" />
+    <meta name="description" content="<%= seo.description %>" />
+    <meta name="keywords" content="<%= seo.keywords %>" />
+    <meta name="author" content="<%= siteSettings.site_name %>" />
     <meta name="robots" content="index, follow" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="UTF-8" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.visakhasecurityforce.com/" />
-    <meta
-      property="og:title"
-      content="Visakha Industrial Security Force | Trusted Industrial Security Services"
-    />
-    <meta
-      property="og:description"
-      content="Reliable and professional industrial security solutions for factories, warehouses, and corporates. 24/7 protection you can trust."
-    />
-    <meta
-      property="og:image"
-      content="https://www.visakhasecurityforce.com/images/og-banner.jpg"
-    />
+    <meta property="og:url" content="<%= seo.url || requestUrl %>" />
+    <meta property="og:title" content="<%= seo.og_title %>" />
+    <meta property="og:description" content="<%= seo.og_description %>" />
+    <meta property="og:image" content="<%= seo.og_image %>" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta
-      property="twitter:url"
-      content="https://www.visakhasecurityforce.com/"
-    />
-    <meta
-      property="twitter:title"
-      content="Visakha Industrial Security Force | Trusted Industrial Security Services"
-    />
-    <meta
-      property="twitter:description"
-      content="Reliable and professional industrial security solutions for factories, warehouses, and corporates. 24/7 protection you can trust."
-    />
-    <meta
-      property="twitter:image"
-      content="https://www.visakhasecurityforce.com/images/og-banner.jpg"
-    />
+    <meta property="twitter:url" content="<%= seo.url || requestUrl %>" />
+    <meta property="twitter:title" content="<%= seo.twitter_title %>" />
+    <meta property="twitter:description" content="<%= seo.twitter_description %>" />
+    <meta property="twitter:image" content="<%= seo.twitter_image %>" />
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://www.visakhasecurityforce.com/" />
+    <meta property="og:url" content="<%= seo.url || requestUrl %>" />
+<link rel="canonical" href="<%= seo.url || requestUrl %>" />
+<meta property="twitter:url" content="<%= seo.url || requestUrl %>" />
 
-    <link rel="apple-touch-icon" sizes="57x57" href="/images/fav-icon.png" />
-    <link rel="apple-touch-icon" sizes="60x60" href="/images/fav-icon.png" />
-    <link rel="apple-touch-icon" sizes="72x72" href="/images/fav-icon.png" />
+
+    <link rel="apple-touch-icon" sizes="57x57" href="<%= siteSettings.favicon_url %>" />
+    <link rel="apple-touch-icon" sizes="60x60" href="<%= siteSettings.favicon_url %>" />
+    <link rel="apple-touch-icon" sizes="72x72" href="<%= siteSettings.favicon_url %>" />
     <link rel="manifest" href="/images/favicons/manifest.json" />
     <meta name="msapplication-TileColor" content="#ffffff" />
-    <link rel="icon" href="/images/fav-icon.png" type="image/x-icon" />
-
-    <meta name="msapplication-TileImage" content="/images/fav-icon.png" />
+    <link rel="icon" href="<%= siteSettings.favicon_url %>" type="image/x-icon" />
+    <meta name="msapplication-TileImage" content="<%= siteSettings.favicon_url %>" />
     <meta name="theme-color" content="#ffffff" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/fontawesome.min.css" />
     <link rel="stylesheet" href="/css/magnific-popup.min.css" />
     <link rel="stylesheet" href="/css/swiper-bundle.min.css" />
     <link rel="stylesheet" href="/css/style.css" />
-  </head>
+</head>
+
   <body>
     <div
       class="slider-drag-cursor d-flex align-items-center justify-content-between"
@@ -105,7 +72,7 @@
       <div class="th-menu-area text-center">
         <button class="th-menu-toggle"><i class="fal fa-times"></i></button>
         <div class="mobile-logo">
-          <a href="index"><img width="80" src="/images/logo.png" alt="Atek" /></a>
+          <a href="index"><img width="80" src="<%= siteSettings.logo1_url %>" alt="logo-1" /></a>
         </div>
         <div class="th-mobile-menu">
              <ul>
@@ -113,19 +80,19 @@
                       <a class="active" href="/">Home</a>
                     </li>
                     <li>
-                      <a href="about">About Us</a>
+                      <a href="/about">About Us</a>
                     </li>
                     <li>
-                      <a href="service-details">Our Services</a>
+                      <a href="/service-details">Our Services</a>
                     </li>
                     <li>
-                      <a href="clients">Clients</a>
+                      <a href="/clients">Clients</a>
                     </li>
                     <li>
-                      <a href="gallery">Gallery</a>
+                      <a href="/gallery">Gallery</a>
                     </li>
                     <li>
-                      <a href="contact-us">Contact Us</a>
+                      <a href="/contact-us">Contact Us</a>
                     </li>
                   </ul>
         </div>
@@ -141,14 +108,14 @@
               <div class="header-links">
                 <ul>
                   <li class="d-none d-xl-inline-block">
-                    <a href="mailto:visakhaindustrial@gmail.com">
+                    <a href="mailto:<%= siteSettings.email %>">
                       <i class="fas fa-envelope"></i>
-                      visakhaindustrial@gmail.com
+                      <%= siteSettings.email %>
                     </a>
                   </li>
                   <li class="d-none d-xl-inline-block">
-                    <a href="tel:+91-9248111689">
-                      <i class="fas fa-phone-alt"></i> +91-9248111689
+                    <a href="tel:<%= siteSettings.phone %>">
+                      <i class="fas fa-phone-alt"></i> <%= siteSettings.phone %>
                     </a>
                   </li>
                 </ul>
@@ -159,27 +126,27 @@
                 <div class="header-links">
                   <ul>
                     <li class="d-none d-md-inline-block">
-                      <a href="#!">
+                      <a href="<%= siteSettings.facebook_url %>">
                         <i class="fab fa-facebook-f"></i>
                       </a>
                     </li>
                     <li class="d-none d-md-inline-block">
-                      <a href="#1">
+                      <a href="<%= siteSettings.instagram_url %>">
                         <i class="fab fa-instagram"></i>
                       </a>
                     </li>
-                    <li class="d-none d-md-inline-block">
-                      <a href="#1">
+                    <!-- <li class="d-none d-md-inline-block">
+                      <a href="<%= siteSettings.phone %>">
                         <i class="fab fa-youtube"></i>
                       </a>
-                    </li>
+                    </li> -->
                     <li class="d-none d-md-inline-block">
-                      <a href="#1">
+                      <a href="<%= siteSettings.instagram_url %>">
                         <i class="fab fa-linkedin-in"></i>
                       </a>
                     </li>
                     <li class="d-none d-md-inline-block">
-                      <a href="#1">
+                      <a href="<%= siteSettings.whatsapp_url %>">
                         <i class="fab fa-whatsapp"></i>
                       </a>
                     </li>
@@ -197,7 +164,7 @@
               <div class="col-md-2 col-lg-2 col-xl-2 col-xxl-2 text-center">
                 <div class="header-logo first-logo">
                   <a href="index">
-                    <img src="/images/logo.png" alt="Atek" />
+                    <img src="<%= siteSettings.logo1_url %>" alt="logo-1" />
                   </a>
                 </div>
               </div>
@@ -234,7 +201,7 @@
                     <img
                       width="250"
                       height="74"
-                      src="/images/logo-2.png"
+                      src="<%= siteSettings.logo2_url	 %>"
                       alt="Atek"
                     />
                   </a>

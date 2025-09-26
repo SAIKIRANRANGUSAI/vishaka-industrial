@@ -28,7 +28,9 @@
               <div class="about-contact-details">
                 <span class="sec-text">Call Us For Query</span>
                 <p class="about-contact-details-text">
-                  <a href="tel:+919248111689">(+91) 9248111689</a>
+                  <a href="tel:<%= siteSettings.phone %>">
+                    <%= siteSettings.phone %>
+                  </a>
                 </p>
               </div>
             </div>
@@ -39,7 +41,9 @@
               <div class="about-contact-details">
                 <span class="sec-text">Email Us</span>
                 <p class="about-contact-details-text">
-                  <a href="mailto:visakhaindustrial@gmail.com">visakhaindustrial@gmail.com</a>
+                  <a href="mailto:<%= siteSettings.email %>">
+                    <%= siteSettings.email %>
+                  </a>
                 </p>
               </div>
             </div>
@@ -50,78 +54,133 @@
               <div class="about-contact-details">
                 <span class="sec-text">Visit Our Office</span>
                 <p class="about-contact-details-text">
-                  <a href="https://maps.app.goo.gl/v7U4SM1HN8VJgAGe6" target="_blank">7-14-7/1 Ramalayam Arch Old
-                    Gajuwaka-530026, Visakahapatnam A.P</a>
+                  <%= siteSettings.address %></a>
                 </p>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-xl-7">
-          <div class="contact-formbox ms-xl-3 ps-xl-3">
-            <form id="contactForm" class="contact-form ajax-contact" action="/contact-submit" method="POST">
-              <div class="row">
-                <div class="col-sm-6 form-group">
-                  <input type="text" class="form-control" name="name" id="name" placeholder="Your Name" required />
-                  <img src="/images/icon/user.svg" alt="" />
-                </div>
-                <div class="col-sm-6 form-group">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Email Address"
-                    required />
-                  <img src="/images/icon/mail.svg" alt="" />
-                </div>
-                <div class="col-sm-6 form-group">
-                  <input type="text" class="form-control" name="number" id="number" placeholder="Phone Number"
-                    required />
-                  <img src="/images/icon/call.svg" alt="" />
-                </div>
-                <div class="col-sm-6 form-group">
-                  <select name="subject" id="subject" class="form-select nice-select" required>
-                    <option value="" selected disabled>Select Subject</option>
-                    <option value="Security guards">Security guards</option>
-                    <option value="Housekeeping and Conservancy">Housekeeping and Conservancy</option>
-                    <option value="Data Entry Operator">Data Entry Operator</option>
-                    <option value="All types of Manpower Services">All types of Manpower Services</option>
-                    <option value="Other">Other</option>
-                  </select>
-                  <input type="text" id="otherSubject" name="otherSubject" placeholder="Enter Subject"
-                    class="form-control mt-2" style="display:none;" />
-                </div>
-                <div class="form-group col-12">
-                  <textarea name="message" id="message" cols="30" rows="3" class="form-control"
-                    placeholder="Your Message" required></textarea>
-                  <img src="/images/icon/chat.svg" alt="" />
-                </div>
-                <div class="form-group col-12 mt-2">
-                  <div id="recaptcha"></div>
-                </div>
-                <div class="form-btn col-12">
-                  <button type="submit" class="th-btn">
-                    Submit Now
-                    <img src="/images/icon/plane4.svg" alt="" />
-                  </button>
-                </div>
+       <div class="col-xl-7">
+  <div class="contact-formbox ms-xl-3 ps-xl-3">
+    <form id="contactForm" class="contact-form ajax-contact" action="/contact-submit" method="POST">
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <input type="text" class="form-control" name="name" id="name3" placeholder="Your Name" required />
+          <img src="assets/img/icon/user.svg" alt="" />
+        </div>
+        <div class="col-sm-6 form-group">
+          <input type="email" class="form-control" name="email" id="email" placeholder="Email Address" required />
+          <img src="assets/img/icon/mail.svg" alt="" />
+        </div>
+        <div class="col-sm-6 form-group">
+          <input type="text" class="form-control" name="number" id="number" placeholder="Phone Number" required />
+          <img src="assets/img/icon/call.svg" alt="" />
+        </div>
+        <div class="col-sm-6 form-group">
+          <select name="subject" id="subject" class="form-select nice-select" required>
+            <option value="" selected disabled>Select Subject</option>
+            <option value="Security guards">Security guards</option>
+            <option value="Housekeeping and Conservancy">Housekeeping and Conservancy</option>
+            <option value="Data Entry Operator">Data Entry Operator</option>
+            <option value="All types of Manpower Services">All types of Manpower Services</option>
+            <option value="Other">Other</option>
+          </select>
+          <input type="text" id="otherSubject" name="otherSubject" placeholder="Enter Subject" class="form-control mt-2" style="display:none;" />
+        </div>
+        <div class="form-group col-12">
+          <textarea name="message" id="message" cols="30" rows="3" class="form-control" placeholder="Your Message" required></textarea>
+          <img src="assets/img/icon/chat.svg" alt="" />
+        </div>
+
+        <!-- SIMPLE RECAPTCHA -->
+        <div class="col-12 form-group">
+          <div class="g-recaptcha" data-sitekey="6LcCIdYrAAAAABVNeglBrhERHOJ-R1wrNyzIvWV2"></div>
+        </div>
+
+        <div class="form-btn col-12">
+          <button type="submit" class="th-btn">
+            Submit Now
+            <img src="assets/img/icon/plane4.svg" alt="" />
+          </button>
+        </div>
+      </div>
+
+      <p class="form-messages mb-0 mt-3"></p>
+    </form>
+  </div>
+</div>
+
+
+
+
+        <div class="space-bottom">
+          <div class="container">
+            <div class="contact-map style2">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30406.95035455938!2d83.18770600589775!3d17.70365722723585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a396975a68151d7%3A0xaa62f6cbd5b51865!2sOLA%20Electric%20Store!5e0!3m2!1sen!2sin!4v1755763200369!5m2!1sen!2sin"
+                allowfullscreen="" loading="lazy"></iframe>
+              <div class="contact-icon">
+                <img src="/images/icon/location-dot3.svg" alt="" />
               </div>
-              <p class="form-messages mb-0 mt-3"></p>
-            </form>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="space-bottom">
-    <div class="container">
-      <div class="contact-map style2">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30406.95035455938!2d83.18770600589775!3d17.70365722723585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a396975a68151d7%3A0xaa62f6cbd5b51865!2sOLA%20Electric%20Store!5e0!3m2!1sen!2sin!4v1755763200369!5m2!1sen!2sin"
-          allowfullscreen="" loading="lazy"></iframe>
-        <div class="contact-icon">
-          <img src="/images/icon/location-dot3.svg" alt="" />
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <%- include('partials/footer') %>
+        <!-- reCAPTCHA script -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-   
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('contactForm');
+  const msgEl = form.querySelector('.form-messages');
+  const submitBtn = form.querySelector('button[type="submit"]');
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    msgEl.textContent = '';
+    submitBtn.disabled = true;
+
+    const token = grecaptcha.getResponse();
+    if (!token) {
+      msgEl.textContent = 'Please complete the reCAPTCHA.';
+      msgEl.style.color = 'red';
+      submitBtn.disabled = false;
+      return;
+    }
+
+    const body = new URLSearchParams(new FormData(form));
+    body.set('g-recaptcha-response', token);
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body
+      });
+      const data = await res.json();
+
+      msgEl.textContent = data.message || 'Unexpected response';
+      msgEl.style.color = data.success ? 'green' : 'red';
+
+      if (data.success) form.reset();
+      grecaptcha.reset();
+    } catch (err) {
+      console.error(err);
+      msgEl.textContent = 'Submission failed. Try again later.';
+      msgEl.style.color = 'red';
+      grecaptcha.reset();
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+
+  // Show/hide other subject field
+  const subjectSel = document.getElementById('subject');
+  const otherInput = document.getElementById('otherSubject');
+  subjectSel?.addEventListener('change', () => {
+    otherInput.style.display = subjectSel.value === 'Other' ? 'block' : 'none';
+  });
+});
+</script>
+
+        <%- include('partials/footer') %>

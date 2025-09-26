@@ -34,21 +34,17 @@
             <i class="fas fa-info-circle"></i>
             <span>Services</span>
         </a>
-        <a href="/admin/admission"
-            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'admission') ? 'active' : '' %>">
-            <i class="fas fa-file-alt"></i>
-            <span>Admission</span>
-        </a>
-        <a href="/admin/Events"
-            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'Events') ? 'active' : '' %>">
+        
+        <a href="/admin/clients"
+            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'clients') ? 'active' : '' %>">
             <i class="fas fa-graduation-cap"></i>
-            <span>Events</span>
+            <span>clients</span>
         </a>
 
-        <a href="/admin/Facilities"
-            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'Facilities') ? 'active' : '' %>">
+        <a href="/admin/testimonial"
+            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'testimonial') ? 'active' : '' %>">
             <i class="fas fa-graduation-cap"></i>
-            <span> Facilities</span>
+            <span> Testimonial</span>
         </a>
 
         <a href="/admin/gallery"
@@ -56,11 +52,17 @@
             <i class="fas fa-graduation-cap"></i>
             <span>Gallery</span>
         </a>
-        <a href="/admin/Administration"
+
+        <a href="/admin/who_we_are"
+            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'who_we_are') ? 'active' : '' %>">
+            <i class="fas fa-file-alt"></i>
+            <span>Who_we_are</span>
+        </a>
+        <!-- <a href="/admin/Administration"
             class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'Administration') ? 'active' : '' %>">
             <i class="fas fa-users"></i>
             <span>Administration</span>
-        </a>
+        </a> -->
 
         <div class="menu-label">Settings</div>
         <a href="/admin/settings"
