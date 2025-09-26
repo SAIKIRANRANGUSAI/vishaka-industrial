@@ -199,7 +199,7 @@ router.get("/clients", async (req, res) => {
 router.get("/contact-us", (req, res) => {
   res.render("contact-us", {
     title: "Contact Us",
-    sitekey: '6LcCIdYrAAAAABVNeglBrhERHOJ-R1wrNyzIvWV2'
+    sitekey: '6LcNJ9YrAAAAAOkmAwF1M3-4XqUzOvFqdRtajjfO'
   });
 });
 
@@ -214,7 +214,7 @@ router.post("/contact-submit", async (req, res) => {
     }
 
     // reCAPTCHA v2 secret
-    const secret = '6LcCIdYrAAAAAEDHrTv4b1-Kb6gqlIdXGs5pe0Mq';
+    const secret = '6LcNJ9YrAAAAABkXTOpApjA20Edzg84W0GiNw0jV';
 
     // Verify token
     const verifyRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
