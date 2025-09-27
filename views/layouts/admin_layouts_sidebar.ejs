@@ -10,76 +10,71 @@
 
 
     <div class="sidebar-menu" id="sidebarMenu">
-        <div class="menu-label">Main</div>
-        <a href="/admin/dashboard"
-            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'dashboard') ? 'active' : '' %>">
-            <i class="fas fa-home"></i>
-            <span>Dashboard</span>
-        </a>
+    <div class="menu-label">Main</div>
+    <a href="/admin/dashboard"
+        class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'dashboard') ? 'active' : '' %>">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+    </a>
 
-        <a href="/admin/home"
-            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'home') ? 'active' : '' %>">
-            <i class="fas fa-house-user"></i>
-            <span>Home</span>
-        </a>
+    <a href="/admin/home"
+        class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'home') ? 'active' : '' %>">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+    </a>
 
-        <div class="menu-label">Content</div>
-        <a href="/admin/about-us"
-            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'about-us') ? 'active' : '' %>">
-            <i class="fas fa-info-circle"></i>
-            <span>About Us</span>
-        </a>
-        <a href="/admin/services"
-            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'services') ? 'active' : '' %>">
-            <i class="fas fa-info-circle"></i>
-            <span>Services</span>
-        </a>
-        
-        <a href="/admin/clients"
-            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'clients') ? 'active' : '' %>">
-            <i class="fas fa-graduation-cap"></i>
-            <span>clients</span>
-        </a>
+    <div class="menu-label">Content</div>
+    <a href="/admin/about-us"
+        class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'about-us') ? 'active' : '' %>">
+        <i class="fas fa-info-circle"></i>
+        <span>About Us</span>
+    </a>
+    <a href="/admin/services"
+        class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'services') ? 'active' : '' %>">
+        <i class="fas fa-concierge-bell"></i>
+        <span>Services</span>
+    </a>
 
-        <a href="/admin/testimonial"
-            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'testimonial') ? 'active' : '' %>">
-            <i class="fas fa-graduation-cap"></i>
-            <span> Testimonial</span>
-        </a>
+    <a href="/admin/clients"
+        class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'clients') ? 'active' : '' %>">
+        <i class="fas fa-users"></i>
+        <span>Clients</span>
+    </a>
 
-        <a href="/admin/gallery"
-            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'gallery') ? 'active' : '' %>">
-            <i class="fas fa-graduation-cap"></i>
-            <span>Gallery</span>
-        </a>
+    <a href="/admin/testimonial"
+        class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'testimonial') ? 'active' : '' %>">
+        <i class="fas fa-comment-dots"></i>
+        <span>Testimonial</span>
+    </a>
 
-        <a href="/admin/who_we_are"
-            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'who_we_are') ? 'active' : '' %>">
-            <i class="fas fa-file-alt"></i>
-            <span>Who_we_are</span>
-        </a>
-        <!-- <a href="/admin/Administration"
-            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'Administration') ? 'active' : '' %>">
-            <i class="fas fa-users"></i>
-            <span>Administration</span>
-        </a> -->
+    <a href="/admin/gallery"
+        class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'gallery') ? 'active' : '' %>">
+        <i class="fas fa-image"></i>
+        <span>Gallery</span>
+    </a>
 
-        <div class="menu-label">Settings</div>
-        <a href="/admin/settings"
-            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'settings') ? 'active' : '' %>">
-            <i class="fas fa-cog"></i>
-            <span>Settings</span>
-        </a>
-        <a href="/admin/seo-settings"
-            class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'seo-settings') ? 'active' : '' %>">
-            <i class="fas fa-cog"></i>
-            <span>SEO-Settings</span>
-        </a>
-        <a href="/admin/logout" class="menu-item" onclick="return confirm('Are you sure you want to logout?');">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Logout</span>
-        </a>
-    </div>
+    <a href="/admin/who_we_are"
+        class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'who_we_are') ? 'active' : '' %>">
+        <i class="fas fa-file-alt"></i>
+        <span>Who We Are</span>
+    </a>
+
+    <div class="menu-label">Settings</div>
+    <a href="/admin/settings"
+        class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'settings') ? 'active' : '' %>">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+    </a>
+    <a href="/admin/seo-settings"
+        class="menu-item <%= (typeof currentPage !== 'undefined' && currentPage === 'seo-settings') ? 'active' : '' %>">
+        <i class="fas fa-search"></i>
+        <span>SEO Settings</span>
+    </a>
+    <a href="/admin/logout" class="menu-item" onclick="return confirm('Are you sure you want to logout?');">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </a>
+</div>
 
     <!-- <div class="sidebar-footer">
         <div class="user-info">
@@ -116,32 +111,35 @@
         left: 0;
         top: 0;
     }
+
     @media (max-width: 992px) {
-    .sidebar {
-        position: fixed;
-        left: -260px;
-        transition: left 0.3s ease;
-        z-index: 1000;
-    }
+        .sidebar {
+            position: fixed;
+            left: -260px;
+            transition: left 0.3s ease;
+            z-index: 1000;
+        }
 
-    .sidebar.collapsed {
-        left: 0;
-    }
+        .sidebar.collapsed {
+            left: 0;
+        }
 
-    .main-content-wrapper {
-        margin-left: 0;
+        .main-content-wrapper {
+            margin-left: 0;
+        }
     }
-}
 
 
     .sidebar-header {
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Logo and toggle button on sides */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
-}
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        /* Logo and toggle button on sides */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.1);
+    }
+
     .sidebar-header img {
         width: 40px;
         height: 40px;
@@ -195,25 +193,28 @@
         height: 100%;
         width: 4px;
         background: var(--secondary);
-    }.sidebar-toggle {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 18px;
-    cursor: pointer;
-}
+    }
 
-.sidebar.collapsed {
-    width: 60px; /* collapsed width */
-}
+    .sidebar-toggle {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+    }
 
-.sidebar.collapsed .sidebar-menu {
-    display: none;
-}
+    .sidebar.collapsed {
+        width: 60px;
+        /* collapsed width */
+    }
 
-.sidebar.collapsed h2 {
-    display: none;
-}
+    .sidebar.collapsed .sidebar-menu {
+        display: none;
+    }
+
+    .sidebar.collapsed h2 {
+        display: none;
+    }
 
     .menu-item i {
         width: 24px;

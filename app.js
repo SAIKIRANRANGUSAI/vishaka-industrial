@@ -167,7 +167,8 @@ app.use(async (req, res, next) => {
 
 app.get('/admin/settings/download-db', async (req, res) => {
   try {
-    const backupsDir = path.join(__dirname, 'backups');
+    const backupsDir = process.env.VERCEL ? '/tmp' : path.join(__dirname, 'backups');
+
 
     // Ensure the backups folder exists
     if (!fs.existsSync(backupsDir)) {
